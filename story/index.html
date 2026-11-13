@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoE 的故事 · 一家医院的十年（精读版）</title>
+<meta name="description" content="用故事讲清 Mixture-of-Experts：从 1991 年的分诊台，到 2026 年的万亿城堡。每章附专业导读、工匠笔记与术语小抄。">
+<style>
+  :root {
+    --paper: #faf6ee;
+    --paper-deep: #f3ecdd;
+    --ink: #2b2622;
+    --ink-soft: #5c5347;
+    --ink-faint: #8a8072;
+    --accent: #a0522d;
+    --accent-soft: #c98a63;
+    --accent-2: #1f4e5f;
+    --card: #f1e8d6;
+    --card-edge: #e2d6c0;
+    --rule: #d9cfbc;
+    --shadow: rgba(60, 45, 25, 0.10);
+  }
+  [data-theme="dark"] {
+    --paper: #14120f;
+    --paper-deep: #1b1814;
+    --ink: #e9e1d3;
+    --ink-soft: #b3a996;
+    --ink-faint: #8d8474;
+    --accent: #dd9670;
+    --accent-soft: #b9744f;
+    --accent-2: #83b8c9;
+    --card: #23201a;
+    --card-edge: #3d362b;
+    --rule: #3a342a;
+    --shadow: rgba(0, 0, 0, 0.45);
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(circle at 18% 8%, rgba(160, 82, 45, 0.045), transparent 42%),
+      radial-gradient(circle at 82% 92%, rgba(31, 78, 95, 0.045), transparent 46%);
+    color: var(--ink);
+    font-family: Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+    font-size: 19px;
+    line-height: 1.88;
+    text-rendering: optimizeLegibility;
+    transition: background-color .35s ease, color .35s ease;
+  }
+
+  /* ---------- 顶部阅读进度 ---------- */
+  #progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    z-index: 100;
+    transition: width .08s linear;
+  }
+
+  /* ---------- 版心布局 ---------- */
+  .layout {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px 96px;
+    display: grid;
+    grid-template-columns: 236px minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+  }
+
+  /* ---------- 目录 ---------- */
+  nav.toc {
+    position: sticky;
+    top: 40px;
+    padding-top: 64px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  nav.toc .toc-label {
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+  nav.toc ol {
+    list-style: none;
+    margin: 0; padding: 0;
+    border-left: 1px solid var(--rule);
+  }
+  nav.toc li a {
+    display: block;
+    padding: 6px 0 6px 16px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    margin-left: -1px;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  nav.toc li a:hover { color: var(--accent); }
+  nav.toc li a.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+  nav.toc li a .num {
+    font-family: Georgia, serif;
+    color: var(--ink-faint);
+    margin-right: 8px;
+    font-size: 12px;
+  }
+  nav.toc li a.active .num { color: var(--accent-soft); }
+
+  /* ---------- 正文 ---------- */
+  main { min-width: 0; }
+
+  /* 封面 */
+  .cover {
+    padding: 120px 0 72px;
+    text-align: center;
+    position: relative;
+  }
+  .cover .eyebrow {
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    font-size: 12px;
+    letter-spacing: .34em;
+    color: var(--accent);
+    margin-bottom: 26px;
+  }
+  .cover h1 {
+    font-size: clamp(38px, 6vw, 58px);
+    line-height: 1.22;
+    margin: 0 0 18px;
+    font-weight: 600;
+    letter-spacing: .02em;
+  }
+  .cover .sub {
+    font-size: 20px;
+    color: var(--ink-soft);
+    margin: 0 0 10px;
+    font-style: italic;
+  }
+  .cover .meta {
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-top: 30px;
+    letter-spacing: .06em;
+  }
+  .cover .rule {
+    width: 56px;
+    height: 1px;
+    background: var(--accent);
+    margin: 34px auto 0;
+  }
+  .cover .lead-note {
+    max-width: 34em;
+    margin: 44px auto 0;
+    font-size: 16.5px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    text-align: left;
+    padding: 22px 26px;
+    background: var(--card);
+    border: 1px solid var(--card-edge);
+    border-radius: 4px;
+  }
+  .cover .lead-note strong { color: var(--accent); font-weight: 600; }
+  .cover .read-note { margin-top: 14px; font-size: 15.5px; }
+
+  /* 章节 */
+  section.chapter {
+    padding: 72px 0 24px;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 24px;
+  }
+  section.chapter:first-of-type { border-top: none; }
+  section.preface {
+    padding: 72px 0 24px;
+    scroll-margin-top: 24px;
+  }
+
+  .chapter-head {
+    display: flex;
+    align-items: baseline;
+    gap: 22px;
+    margin-bottom: 38px;
+  }
+  .chapter-head .chapter-no {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 74px;
+    line-height: .8;
+    color: var(--accent);
+    opacity: .28;
+    font-style: italic;
+    flex: none;
+    min-width: 74px;
+    text-align: right;
+    user-select: none;
+  }
+  .chapter-head h2 {
+    font-size: clamp(27px, 3.4vw, 34px);
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: .02em;
+    line-height: 1.3;
+  }
+  .chapter-head .en {
+    display: block;
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    font-size: 11px;
+    letter-spacing: .24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-top: 8px;
+    font-weight: 400;
+  }
+
+  section.chapter p, section.preface p {
+    margin: 0 0 1.15em;
+  }
+  section.chapter p.lead::first-letter, section.preface p.lead::first-letter {
+    font-size: 3.1em;
+    float: left;
+    line-height: .82;
+    padding: 6px 10px 0 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .story-quote {
+    margin: 34px 0;
+    padding: 6px 0 6px 26px;
+    border-left: 3px solid var(--accent-soft);
+    font-size: 20px;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+  .story-quote p { margin: 0; }
+  .story-quote .who {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ink-faint);
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    letter-spacing: .08em;
+  }
+
+  /* ---------- 专业导读：每章开头的硬核版 ---------- */
+  .special-intro {
+    margin: 0 0 44px;
+    padding: 24px 26px 20px;
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+  }
+  .special-intro .si-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    font-size: 11px;
+    letter-spacing: .2em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .special-intro .si-label::before {
+    content: "";
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex: none;
+  }
+  .special-intro .si-lead {
+    margin: 0 0 14px;
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .special-intro ul {
+    margin: 0 0 14px;
+    padding-left: 1.3em;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+  .special-intro li { margin-bottom: .4em; }
+  .special-intro .si-ref {
+    margin: 0;
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    font-size: 12.5px;
+    letter-spacing: .02em;
+    color: var(--ink-faint);
+    border-top: 1px dashed var(--rule);
+    padding-top: 10px;
+  }
+
+  /* 工匠笔记：技术注脚 */
+  aside.note {
+    margin: 34px 0;
+    padding: 20px 24px;
+    background: var(--card);
+    border: 1px solid var(--card-edge);
+    border-left: 3px solid var(--accent-2);
+    border-radius: 3px;
+    font-size: 15.5px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+  aside.note .note-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    font-size: 11.5px;
+    letter-spacing: .2em;
+    color: var(--accent-2);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  aside.note .note-title::before {
+    content: "";
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--accent-2);
+    border-radius: 50%;
+    flex: none;
+  }
+  aside.note strong { color: var(--ink); font-weight: 600; }
+  aside.note code {
+    font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    font-size: .88em;
+    background: var(--paper-deep);
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--card-edge);
+    color: var(--accent);
+  }
+
+  /* 小标题 */
+  section.chapter h3 {
+    font-size: 20px;
+    margin: 44px 0 16px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: .02em;
+  }
+  section.chapter h3::before {
+    content: "§";
+    color: var(--accent-soft);
+    margin-right: 10px;
+    font-weight: 400;
+    font-size: .85em;
+  }
+
+  /* 列表 */
+  section.chapter ul, section.chapter ol {
+    margin: 0 0 1.2em;
+    padding-left: 1.5em;
+  }
+  section.chapter li { margin-bottom: .5em; }
+
+  /* 数字高亮 */
+  .figure {
+    font-family: Georgia, serif;
+    color: var(--accent);
+    font-weight: 600;
+    font-style: normal;
+    white-space: nowrap;
+  }
+
+  /* ---------- 尾声 ---------- */
+  .epilogue {
+    margin-top: 72px;
+    padding: 48px 0 24px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+  .epilogue h2 {
+    font-size: 30px;
+    margin: 0 0 30px;
+    font-weight: 600;
+  }
+  .epilogue ol {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 40em;
+    text-align: left;
+    counter-reset: epi;
+  }
+  .epilogue ol li {
+    counter-increment: epi;
+    position: relative;
+    padding: 18px 0 18px 58px;
+    border-bottom: 1px dashed var(--rule);
+    font-size: 17.5px;
+    line-height: 1.85;
+  }
+  .epilogue ol li:last-child { border-bottom: none; }
+  .epilogue ol li::before {
+    content: counter(epi);
+    position: absolute;
+    left: 0; top: 16px;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-style: italic;
+    color: var(--accent);
+    opacity: .55;
+  }
+  .epilogue .closing {
+    margin: 40px auto 0;
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 34em;
+    font-style: italic;
+  }
+
+  /* ---------- 附录表格 ---------- */
+  .appendix {
+    margin-top: 64px;
+    padding-top: 56px;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 24px;
+  }
+  .appendix h2 {
+    font-size: 26px;
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+  .appendix .appendix-sub {
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin-bottom: 30px;
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table.numbers {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    line-height: 1.65;
+    min-width: 520px;
+  }
+  table.numbers th {
+    text-align: left;
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    font-size: 11.5px;
+    letter-spacing: .12em;
+    color: var(--ink-faint);
+    font-weight: 600;
+    padding: 10px 14px 10px 0;
+    border-bottom: 1px solid var(--ink-faint);
+  }
+  table.numbers td {
+    padding: 11px 14px 11px 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    color: var(--ink-soft);
+  }
+  table.numbers td:first-child {
+    color: var(--ink);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  table.numbers td.num {
+    font-family: Georgia, serif;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* ---------- 术语小抄 ---------- */
+  .glossary-section {
+    margin-top: 64px;
+    padding-top: 56px;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 24px;
+  }
+  .glossary-section h2 {
+    font-size: 26px;
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+  .glossary-section .glossary-sub {
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin-bottom: 24px;
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  dl.glossary { margin: 0; }
+  dl.glossary dt {
+    margin-top: 20px;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 16.5px;
+  }
+  dl.glossary dt .en-term {
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    font-size: 12px;
+    letter-spacing: .06em;
+    color: var(--ink-faint);
+    margin-left: 8px;
+    font-weight: 400;
+  }
+  dl.glossary dd {
+    margin: 4px 0 0;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.8;
+  }
+
+  /* ---------- 页脚 ---------- */
+  footer {
+    margin-top: 80px;
+    padding: 30px 0 0;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: .08em;
+    line-height: 2;
+  }
+
+  /* ---------- 主题切换 ---------- */
+  #theme-toggle {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    background: var(--card);
+    color: var(--ink-soft);
+    font-size: 19px;
+    cursor: pointer;
+    box-shadow: 0 4px 18px var(--shadow);
+    transition: transform .2s ease, background .3s ease;
+    z-index: 90;
+    line-height: 1;
+  }
+  #theme-toggle:hover { transform: translateY(-2px); color: var(--accent); }
+
+  /* ---------- 回到顶部 ---------- */
+  #to-top {
+    position: fixed;
+    right: 22px;
+    bottom: 80px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    background: var(--card);
+    color: var(--ink-soft);
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 4px 18px var(--shadow);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease, transform .2s ease;
+    z-index: 90;
+  }
+  #to-top.show { opacity: 1; pointer-events: auto; }
+  #to-top:hover { transform: translateY(-2px); color: var(--accent); }
+
+  /* ---------- 移动端 ---------- */
+  @media (max-width: 860px) {
+    body { font-size: 17.5px; }
+    .layout {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 0 20px 72px;
+    }
+    /* 移动端：目录收成一行胶囊条 */
+    nav.toc {
+      position: static;
+      padding: 14px 0 16px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    nav.toc::-webkit-scrollbar { display: none; }
+    nav.toc .toc-label { display: none; }
+    nav.toc ol {
+      display: flex;
+      gap: 8px;
+      border-left: none;
+      white-space: nowrap;
+      width: max-content;
+    }
+    nav.toc li a {
+      padding: 5px 13px;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      margin-left: 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+    nav.toc li a .num { font-size: 11px; margin-right: 5px; }
+    nav.toc li a.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    /* 移动端禁用首字下沉，避免窄屏错位 */
+    section.chapter p.lead::first-letter,
+    section.preface p.lead::first-letter {
+      font-size: inherit;
+      float: none;
+      padding: 0;
+      color: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+    }
+    .cover { padding: 56px 0 44px; }
+    .chapter-head .chapter-no { font-size: 52px; min-width: 52px; }
+    section.chapter, section.preface { padding: 52px 0 16px; }
+    .cover .lead-note { padding: 18px 20px; font-size: 15.5px; }
+    .cover .read-note { font-size: 15px; }
+    .special-intro { padding: 18px 18px 16px; margin-bottom: 34px; }
+    .special-intro .si-lead { font-size: 16px; }
+    .special-intro ul { font-size: 14.5px; padding-left: 1.1em; }
+    .epilogue ol li { padding-left: 46px; }
+    /* 移动端按钮缩小、错开，避免遮字 */
+    #theme-toggle, #to-top { width: 40px; height: 40px; right: 14px; }
+    #theme-toggle { bottom: 14px; }
+    #to-top { bottom: 62px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  /* 打印 */
+  @media print {
+    #progress, #theme-toggle, #to-top, nav.toc { display: none; }
+    .layout { grid-template-columns: 1fr; padding: 0; }
+    body { font-size: 11pt; background: #fff; color: #000; }
+    section.chapter { page-break-before: always; }
+    .cover { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div class="layout">
+
+  <!-- 目录 -->
+  <nav class="toc" aria-label="目录">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#preface" class="toc-link"><span class="num">序</span>为什么讲这个故事</a></li>
+      <li><a href="#ch1" class="toc-link"><span class="num">01</span>城堡</a></li>
+      <li><a href="#ch2" class="toc-link"><span class="num">02</span>城堡的灯</a></li>
+      <li><a href="#ch3" class="toc-link"><span class="num">03</span>抢客人的风波</a></li>
+      <li><a href="#ch4" class="toc-link"><span class="num">04</span>楼与楼之间</a></li>
+      <li><a href="#ch5" class="toc-link"><span class="num">05</span>城堡的十年</a></li>
+      <li><a href="#ch6" class="toc-link"><span class="num">06</span>小词的结局</a></li>
+      <li><a href="#epilogue" class="toc-link"><span class="num">—</span>尾声</a></li>
+      <li><a href="#appendix" class="toc-link"><span class="num">—</span>数字速查</a></li>
+      <li><a href="#glossary" class="toc-link"><span class="num">—</span>术语小抄</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- 封面 -->
+    <header class="cover">
+      <div class="eyebrow">一个关于 Mixture-of-Experts 的故事</div>
+      <h1>小词的奇幻漂流</h1>
+      <p class="sub">一家医院的十年 · 精读版</p>
+      <div class="rule"></div>
+      <p class="meta">基于 100 篇论文 · 6 篇专业导读 · 2026 年 11 月</p>
+      <div class="lead-note">
+        <p style="margin:0 0 10px;">这个故事想讲清一件事：<strong>大模型为什么都开始"开医院"了。</strong></p>
+        <p style="margin:0;">你会跟着一个叫<strong>小词</strong>的 token，走进一座有 256 个房间的城堡，看它怎么被分诊、怎么跑腿、怎么遇上抢客人的风波——以及这座城堡十年里是怎么一次次把自己重新盖了一遍的。</p>
+      </div>
+      <div class="lead-note read-note">
+        <p style="margin:0 0 8px;"><strong>这版怎么读</strong></p>
+        <p style="margin:0 0 6px;">① 只想听懂 → 顺着故事读，跳过灰框。</p>
+        <p style="margin:0 0 6px;">② 想顺带学点硬的 → 每章开头的<strong>专业导读</strong>先看，再看故事。</p>
+        <p style="margin:0;">③ 想深挖 → 每章的<strong>工匠笔记</strong>里有公式、数字和论文出处。</p>
+      </div>
+    </header>
+
+    <!-- 序 -->
+    <section class="preface" id="preface">
+      <div class="chapter-head">
+        <span class="chapter-no">序</span>
+        <h2>为什么讲这个故事<span class="en">Before We Begin</span></h2>
+      </div>
+
+      <p class="lead">在讲小词的故事之前，先说三句话。</p>
+
+      <p><strong>第一句：</strong>大模型变大的方式，十年前是"把每个工匠都练得更强"，现在是"雇更多工匠，但每个客人只见几个"。前者叫<strong>稠密模型</strong>，后者叫 <strong>MoE</strong>。</p>
+      <p><strong>第二句：</strong>MoE 不是新东西。1991 年就有人提出，2017 年才变得可训练，2024 年才真正成为主流。它的历史，是一部"瓶颈搬家史"。</p>
+      <p><strong>第三句：</strong>这十年里，几乎所有 MoE 论文都在回答同一个问题——<strong>"稀疏了以后，什么变贵了？"</strong></p>
+
+      <div class="special-intro">
+        <div class="si-label">专业导读 · 三分钟看懂 MoE</div>
+        <p class="si-lead">MoE 的唯一卖点：让"参数容量"和"每 token 计算量"脱钩。容量可以涨到万亿级，每个 token 的算力开销却只相当于一个几十 B 的稠密模型。</p>
+        <ul>
+          <li><strong>稠密模型</strong>：每个 token 都要过全部参数。70B 稠密模型，每个 token 就是 70B 次乘加。</li>
+          <li><strong>MoE</strong>：模型里有 N 个"专家"（各自独立的 FFN），门卫（router）为每个 token 挑 k 个。V3 是 256 个路由专家 + 1 个共享专家，top-8。</li>
+          <li><strong>换来了什么</strong>：V3 总参数 671B，每个 token 只用 37B —— 容量约 18 倍，算力与 37B 稠密模型相当。</li>
+          <li><strong>付出了什么</strong>：显存要装下全部 671B（BF16 下 1.3TB）；专家分散在不同设备上，token 要跨设备"换乘"（all-to-all）；负载不均会让部分专家闲置。</li>
+          <li><strong>一句话</strong>：MoE 把"记忆"和"思考"分开卖——记忆便宜（存得多），思考贵（算得少）。</li>
+        </ul>
+        <p class="si-ref">参考：Shazeer et al., 2017 · DeepSeek-V3 Technical Report, 2024 · MoE 推理系统综述, 2026</p>
+      </div>
+
+      <p>下面这个故事，就是把上面这几条，拆成六章来讲。每一章前面都有一块"专业导读"，写给想看清数字和公式的你；故事本身，写给想先听个明白的你。两边说的是同一件事。</p>
+    </section>
+
+    <!-- 第一章 -->
+    <section class="chapter" id="ch1">
+      <div class="chapter-head">
+        <span class="chapter-no">01</span>
+        <h2>城堡<span class="en">The Castle</span></h2>
+      </div>
+
+      <div class="special-intro">
+        <div class="si-label">专业导读 · 路由与稀疏激活</div>
+        <p class="si-lead">MoE 的全部机制可以压缩成一个公式：y = Σ<sub>i∈TopK</sub> g<sub>i</sub>(x)·E<sub>i</sub>(x)。难点不在公式，而在三个选择：谁来选、选几个、怎么加权。</p>
+        <ul>
+          <li><strong>1991 · Jacobs 等</strong>提出 "adaptive mixtures of local experts"：多个专家 + 一个门控网络，门控决定每个输入用哪些专家。想法诞生，但当时没有稀疏训练的手段。</li>
+          <li><strong>2017 · Shazeer 等</strong>的 Sparsely-Gated MoE 用 top-k 稀疏门控做到 137B 参数，第一次证明"只激活少数专家"能训得动。</li>
+          <li><strong>门控怎么算</strong>：一个矩阵 W<sub>g</sub> 把 token 向量映射成 N 个分数（s = x·W<sub>g</sub>），取最高的 k 个；选中专家的权重归一化后加权求和。</li>
+          <li><strong>sigmoid 还是 softmax</strong>：V3 起改用 sigmoid——每个专家独立判断"我适不适合这个 token"，不与其他专家抢同一个分母。2025 年的理论分析（arXiv:2505.10860）证明这让路由专家的收敛速率从 n<sup>−1/4</sup> 提到 n<sup>−1/2</sup>。</li>
+          <li><strong>V3 的规格</strong>：256 个路由专家 + 1 个共享专家，top-8；61 层，隐藏维度 7168；671B 总参数 / 37B 激活。</li>
+        </ul>
+        <p class="si-ref">关键论文：Jacobs et al., 1991 · Shazeer et al., 2017 · DeepSeek-V3, 2024 · arXiv:2505.10860, 2025</p>
+      </div>
+
+      <p class="lead">从前，有一个叫小词的 token。</p>
+      <p>小词出生在一句话里。那句话是"这家医院治好了我的病"。小词就是"医院"这两个字——它一生的使命，是让读到这句话的人，想起消毒水、白大褂，和走廊尽头那盏彻夜不灭的灯。</p>
+      <p>每句话里都有很多小词，它们排着队，一个一个走进一座巨大的城堡。这座城堡叫 <strong>MoE 城堡</strong>。</p>
+      <p>城堡有多大？门口的石碑上刻着一行字：<strong>256 个房间，257 位工匠</strong>。小词数了三遍，也没数清多出来的那位住在哪儿。后来它才知道，那位工匠住在城堡最深处的一间小屋里，不挂招牌，但每个客人都要从他门口路过——他叫"全科门诊"。</p>
+      <p>城堡里有一条规矩，是全世界城堡里最奇怪的规矩：</p>
+
+      <div class="story-quote">
+        <p>城堡有 256 个房间，每个房间住着一位工匠。但每个客人只准进 8 个房间。</p>
+      </div>
+
+      <p>为什么要这样？因为很久以前，城堡只有一位全职工匠。那位工匠很厉害，什么都会做——数学、历史、写诗、看病，样样精通。可是每来一个客人，他就得把所有本事从头到尾使一遍。客人越多，他越累；累到最后，城堡的主人想再多雇点工匠，却发现——雇一个，累一倍。因为每一位新工匠，都要把全部本事重新使一遍。</p>
+      <p>这叫<strong>稠密</strong>：每个客人，都要经过每一位工匠。</p>
+      <p>于是聪明的建筑师想出了这个怪规矩：<strong>雇 256 个工匠，但每个客人只见 8 个。</strong> 这样，城堡的本事大了几十倍，可每个客人花的力气，一点没多。</p>
+      <p>这叫<strong>稀疏</strong>：每个客人，只惊动一小撮工匠。</p>
+
+      <p>小词第一次走进城堡时，门口站着一位笑眯眯的门卫。</p>
+      <p>"你好，"门卫说，"我叫<strong>路由器</strong>。让我看看你。"</p>
+      <p>门卫的眼睛在小词身上扫了一圈。那不是普通的眼睛——那是一面由 256 块小镜子拼成的墙，每一块镜子都从不同角度照小词：3 号镜子看它像不像数学题，17 号镜子看它有没有历史味，42 号镜子闻它身上有没有消毒水……</p>
+      <p>每块镜子给出一个分数。门卫飞快地在心里排了个序：</p>
+      <p>"嗯，你身上有股消毒水的味道。3 号房间、17 号房间、42 号房间……还有这 5 个，去吧。"</p>
+      <p>门卫递给小词 8 张房卡，每张卡上还写着一个数字——那是小词在这 8 个房间里的"分量"。8 张卡上的数字加起来，正好是 1。</p>
+      <p>小词揣着房卡，跑进城堡深处。8 个房间，8 位工匠，每人给它加工一遍：3 号房间的工匠把它的意思拧了拧，17 号房间的工匠又添了点料，42 号房间的工匠在它身上盖了个"病"字的戳……</p>
+      <p>小词把 8 份加工结果按房卡上的数字加权混合，变成一份新的小词，心满意足地走出城堡。</p>
+      <p>它回头看了一眼，忽然觉得：这座城堡不像一座城堡，倒像一家医院。每个房间是一个科室，每位工匠是一位专科大夫，而它自己——一个 token——是一个来挂号的病人。</p>
+
+      <aside class="note">
+        <div class="note-title">工匠笔记 · 门卫到底在算什么</div>
+        <p style="margin:0 0 10px;">门卫不是一个真人，而是一个小矩阵 <code>W_g</code>。它把小词的向量乘一下，得到 256 个分数（<code>s = x·W_g</code>），然后取分数最高的 k 个房间。房卡上的"分量"是这 k 个分数的归一化结果，保证加起来等于 1。</p>
+        <p style="margin:0 0 10px;">DeepSeek 系列从 V2 起把打分函数从 softmax 换成了 <strong>sigmoid</strong>：softmax 让所有房间在同一个分母下互相抢分（一个高就压低其他所有），sigmoid 让每个房间独立判断"我适不适合这个客人"。</p>
+        <p style="margin:0;">2025 年的理论分析（arXiv:2505.10860）证明，这让路由专家的收敛速度从 n<sup>−1/4</sup> 提到 n<sup>−1/2</sup>——同样的数据，学得更快。代价是"共享专家"必须存在：sigmoid 不再强制归一化，需要一个所有人都要经过的专家兜住通用知识。</p>
+      </aside>
+
+      <p>这就是 MoE 的全部秘密。一句话：<strong>门卫分诊，客人跑腿，工匠加工，加权混合。</strong></p>
+      <p>当然，故事到这里才刚开头。因为小词很快就发现，这座城堡有两件事，门卫没告诉它。</p>
+    </section>
+
+    <!-- 第二章 -->
+    <section class="chapter" id="ch2">
+      <div class="chapter-head">
+        <span class="chapter-no">02</span>
+        <h2>城堡的灯<span class="en">The Lights Are Always On</span></h2>
+      </div>
+
+      <div class="special-intro">
+        <div class="si-label">专业导读 · 显存与算术强度</div>
+        <p class="si-lead">MoE 省的是算力，不是显存。这是它最容易被误解的一点，也是推理系统所有麻烦的源头。</p>
+        <ul>
+          <li><strong>房子有多大</strong>：671B 参数按 BF16（2 字节）存放要 1.3TB；一张 H800 只有 80GB，装下它至少要 16 张卡，还得给 KV cache 和激活留余量。</li>
+          <li><strong>为什么灯全亮</strong>：门卫无法预知下一个 token 会选哪些专家，所以全部专家必须常驻显存——不能按需换入换出。</li>
+          <li><strong>算术强度</strong>：decode 时每从显存读 1 字节权重，只做约 1 次乘加（BF16），即 1 FLOP/byte；H100 的"拐点"是 295 FLOP/byte。差近 300 倍，GPU 大部分时间在等显存。</li>
+          <li><strong>利用率</strong>：batch=1 时 GPU 算力利用率只有 1–2%；要让专家从"等内存"变成"等算力"，每个专家手头得攒约 256 个 token。</li>
+          <li><strong>三板斧</strong>：做大 batch、做专家并行、做量化——三者本质都是"把每字节权重摊到更多 token 上"。</li>
+          <li><strong>训练侧对照</strong>：V3 用 2.788M H800 小时训完 14.8T tokens，全程零不可恢复 loss spike——算力省到极致，显存和通信一分没省。</li>
+        </ul>
+        <p class="si-ref">关键论文：DeepSeek-V3, 2024 · MoE 推理系统综述, 2026</p>
+      </div>
+
+      <p class="lead">可是小词不知道，城堡有个它看不见的秘密。</p>
+      <p>每天夜里，城堡 256 个房间的灯，<strong>全都亮着</strong>。</p>
+      <p>没有客人的房间，工匠也坐在里面，灯也亮着，火也烧着。小词有一次半夜路过，忍不住问一位老工匠："今天没人来，您怎么不熄灯歇着？"</p>
+      <p>老工匠笑了笑："因为门卫不知道明天会来什么客人。今天来的都是问数学题的，明天可能全是问历史的。为了随时能接待，我们所有工匠，必须天天到岗。"</p>
+      <p>这就是城堡最大的开销：<span class="figure">6710 亿</span>个工匠的本事，全都要占着地方（显存），可每个客人只用得上其中 <span class="figure">370 亿</span>。</p>
+      <p>城堡的主人算过一笔账：要把 6710 亿个工匠都安置好，需要 <span class="figure">1.3TB</span> 的房间——相当于把整座城堡都租下来，可每天只有 5% 的房间真正开张。</p>
+      <p>账房先生把这笔账念给小词听："6710 亿工匠，每人 2 个字节的档案，就是 1.3TB。一张最好的显卡，也只装得下 80GB。你算算，得多少张卡？"</p>
+      <p>小词算了半天，没算出来。账房先生替它答："至少 16 张。而且这 16 张卡，每张都得把灯点着，等客人。"</p>
+      <p>小词又问："那能不能等客人来了，再叫工匠起来？"</p>
+      <p>账房先生摇头："试过。可门卫没法提前知道明天来谁，临时叫人也来不及——等工匠赶到，客人早就走了。所以所有城堡都认了命：灯，必须全亮着。"</p>
+
+      <div class="story-quote">
+        <p>省的是力气，不是房子。</p>
+        <span class="who">——城堡里所有工匠都会背的一句话</span>
+      </div>
+
+      <p>这句话，是后来一切麻烦的开始。</p>
+
+      <aside class="note">
+        <div class="note-title">工匠笔记 · 为什么单卡跑不动</div>
+        <p style="margin:0 0 10px;">一个 token 前向时要读的权重量，除以它要做的计算量，叫<strong>算术强度</strong>。BF16 精度下这个比值是 <code>1 FLOP/byte</code>——意思是每从显存搬 1 个字节，只做 1 次乘加。</p>
+        <p style="margin:0 0 10px;">而 H100 这块卡的"拐点"是 <code>295 FLOP/byte</code>：低于这个比值，GPU 就是在等内存，不是在算。两者差了近 <strong>300 倍</strong>。</p>
+        <p style="margin:0;">所以 batch=1 时 GPU 的算力利用率只有 <strong>1–2%</strong>。要让 GPU 忙起来，每个工匠手头得攒到约 <strong>256 个客人</strong>的 batch 才行——这就是为什么生产系统都在拼命做大 batch、做专家并行。</p>
+      </aside>
+
+      <p>小词后来才明白：这座城堡最贵的东西，从来不是工匠干活，而是<strong>让所有工匠都坐在那儿等着</strong>。</p>
+      <p>这也是为什么，后来所有城堡都在拼命做三件事：把客人攒成批（batch）、把工匠分到不同的楼（专家并行）、把工匠的本事压缩成小册子（量化）。三件事，说的都是同一句话——<strong>别让灯白亮着。</strong></p>
+    </section>
+
+    <!-- 第三章 -->
+    <section class="chapter" id="ch3">
+      <div class="chapter-head">
+        <span class="chapter-no">03</span>
+        <h2>抢客人的风波<span class="en">The Queue Wars</span></h2>
+      </div>
+
+      <div class="special-intro">
+        <div class="si-label">专业导读 · 负载均衡的四代方案</div>
+        <p class="si-lead">稀疏激活带来一个新问题：门卫会偏心。负载均衡的四代方案，是 MoE 训练史上最实用的一条线——从"往损失里加罚"走到"把均衡从梯度里拿出去"。</p>
+        <ul>
+          <li><strong>第一代 · aux loss（Switch Transformer, 2021）</strong>：辅助损失 L<sub>aux</sub> = α·N·Σ<sub>i</sub> f<sub>i</sub>·P<sub>i</sub>，逼每个专家分到相近比例的 token。有效，但梯度里混进了"为了凑人数而改变分诊"的干扰信号。</li>
+          <li><strong>第二代 · aux + z-loss（ST-MoE, 2022）</strong>：惩罚门控 logits 过大，训练更稳；但损失系数的调参极其敏感，数据分布一变就得重调。</li>
+          <li><strong>第三代 · aux-loss-free（DeepSeek-V3, 2024）</strong>：给每个专家一个偏置 b<sub>i</sub>，只影响排序、不进梯度；每步按负载更新 b<sub>i</sub> ← b<sub>i</sub> + γ·sign(load<sub>i</sub> − mean_load)，γ 取 0.001 量级。语言建模的梯度专心学"谁更适合这个 token"。</li>
+          <li><strong>第四代 · 推理侧（EPLB）</strong>：训练时均衡 ≠ 开张时均衡，热门专家在推理时照样被挤爆，于是给它们配冗余副本，并按实时负载动态重排。</li>
+          <li><strong>反面视角（LLEP, 2026）</strong>：适度不均衡不是坏事，专家特化（骨科大夫天天看骨折）本来就是 MoE 想要的；目标不是绝对平均，而是"别让哪个专家排队排到天荒地老"。</li>
+          <li><strong>结果</strong>：V3 用 aux-loss-free 连续训练 14.8T tokens，零不可恢复 spike。</li>
+        </ul>
+        <p class="si-ref">关键论文：Switch Transformer, 2021 · ST-MoE, 2022 · DeepSeek-V3, 2024 · LLEP, 2026</p>
+      </div>
+
+      <p class="lead">城堡开张没多久，就出了乱子。</p>
+      <p>门卫的分诊办法有个毛病：<strong>他让客人自己挑房间。</strong></p>
+      <p>客人一进门，自己给 256 个房间打分，挑分最高的 8 个。结果呢？大家都往"名医房间"挤——那几个房间的工匠确实厉害，可再厉害也架不住全城的人都来找他。热门房间门口排起长队，冷门房间的工匠天天打瞌睡。</p>
+      <p>管家管这叫<strong>"负载坍缩"</strong>——意思是，城堡白养了一大半工匠。</p>
+      <p>更糟的是，排队排久了，有些客人等不及，干脆走了——这在城堡的账本上叫"丢 token"（token dropping）。客人丢了，句子就断了；句子断了，城堡说的话就前言不搭后语。</p>
+
+      <p>管家想了四代办法。</p>
+
+      <h3>第一代：贴告示</h3>
+      <p>管家贴了张告示："所有房间客人数量必须平均，不平均就扣工匠工钱。"</p>
+      <p>这招管用，可工匠们抱怨：为了凑人数，他们被迫接待不对口的客人，活儿越干越糙。有个数学工匠被塞了一堆古诗，气得把算盘摔了。</p>
+      <p>管家在账本上记下：告示有效，但工匠的手艺退步了。</p>
+
+      <h3>第二代：再加一条</h3>
+      <p>管家又在告示上加了句："门卫打分别太自信。" 城堡稳了点，可告示的措辞特别难拿捏——客人一多一少，措辞就得跟着改。有一回客人突然少了一半，告示没来得及改，城堡差点又乱套。</p>
+
+      <h3>第三代：改叫号</h3>
+      <p>来了个新管家，他想了个绝的：</p>
+
+      <div class="story-quote">
+        <p>不动告示，改叫号。</p>
+      </div>
+
+      <p>他给每个房间配了一个"叫号牌"——忙的房间，号往后挪一点；闲的房间，号往前挪一点。牌子只影响"排到谁"，<strong>完全不影响工匠怎么干活</strong>。</p>
+      <p>新管家得意地说："这叫<strong>免考核均衡</strong>（aux-loss-free）。工匠们该干嘛干嘛，排队的事，交给牌子。"</p>
+      <p>小词有一次问新管家："牌子上的号，是谁在改？"</p>
+      <p>"没人改，"新管家说，"牌子自己会动。每个房间忙了，号就往后挪一丁点；闲了，号就往前挪一丁点。挪多少，是算好的——不多不少，刚好让队伍慢慢散开。"</p>
+      <p>这一招，让城堡创下了纪录：连续训练 <span class="figure">14.8 万亿</span>个客人，一次都没崩过。</p>
+
+      <h3>第四代：配分身</h3>
+      <p>客人真的来了以后，管家发现，就算训练时排得好好的，真开张了，热门房间还是挤。于是他干脆给热门工匠<strong>配了个分身</strong>——同一个工匠，两个房间同时开工。客人分流了，队伍短了。</p>
+      <p>分身不是白配的：一个工匠的本事要复制一份，占双份的地方。所以管家只给最挤的几个房间配，而且每隔一阵就重新数一遍队伍，把分身挪到最需要的地方去。</p>
+
+      <aside class="note">
+        <div class="note-title">工匠笔记 · 叫号牌的真身</div>
+        <p style="margin:0 0 10px;">"叫号牌"是每个工匠一个偏置项 <code>b_i</code>。门卫选房间时用 <code>s_i + b_i</code> 排序，但<strong>这个偏置不进梯度</strong>——它不参与反向传播。</p>
+        <p style="margin:0 0 10px;">每个训练步结束后按负载更新：<code>b_i ← b_i + γ·sign(load_i − mean_load)</code>。忙的房间 b 减小（下步更难被选中），闲的房间 b 增大。γ 取 0.001 量级。</p>
+        <p style="margin:0;">对比一下第一代"告示"：那是把"均衡"写成损失函数加进去，梯度里就混进了"为了凑人数而改变分诊"的干扰信号。第三代把这个信号从梯度里拿出来了——语言建模的梯度可以专心学"哪个工匠更适合这个客人"。</p>
+      </aside>
+
+      <p>有意思的是，后来有个学者写了篇论文，说了一句让管家愣住的话：</p>
+
+      <div class="story-quote">
+        <p>客人扎堆，其实不全是坏事。骨科大夫天天看骨折，本来就是城堡想要的。</p>
+        <span class="who">——LLEP 论文（2026）</span>
+      </div>
+
+      <p>管家想了半天，把告示又改了：<strong>目标不是"绝对平均"，是"别让哪个房间排队排到天荒地老"。</strong></p>
+      <p>小词后来才懂：均衡不是目的，均衡是手段。真正要保的，是<strong>没有一个客人因为排队太久而被丢掉</strong>。</p>
+    </section>
+
+    <!-- 第四章 -->
+    <section class="chapter" id="ch4">
+      <div class="chapter-head">
+        <span class="chapter-no">04</span>
+        <h2>楼与楼之间<span class="en">Between the Towers</span></h2>
+      </div>
+
+      <div class="special-intro">
+        <div class="si-label">专业导读 · All-to-all 与专家并行</div>
+        <p class="si-lead">当专家多到一间房装不下，MoE 的瓶颈就从算力搬到了网络。这一章的数字，是整套推理系统设计的起点。</p>
+        <ul>
+          <li><strong>通信量公式</strong>：单层 V = 2·T·k·d·b。T=4096, k=8, d=7168, BF16 b=2 → 每层约 939MB；61 层累计约 57GB。系数 2 是"去程 + 回程"。</li>
+          <li><strong>还没算的部分</strong>：路由元数据、padding、对端排队。所以 MoE 推理的瓶颈常常不在矩阵乘，而在网络。</li>
+          <li><strong>EP 而非 TP</strong>：张量并行（TP）把每个矩阵切开，每层都要全卡 all-reduce，通信量与向量宽度 d 成正比；专家并行（EP）把不同专家分到不同卡，只在 MoE 层传 token，通信量与"实际被路由的 token 数"成正比——稀疏时更省。</li>
+          <li><strong>EP 的代价</strong>：并行度越高，每个专家手头的 token 越少，矩阵乘越小、效率越低。V3 的对策是<strong>按阶段换并行度</strong>：prefill（成批 token）用 EP32，decode（零散 token）用 EP320——每卡一个专家，靠大 batch 摊薄。</li>
+          <li><strong>通信库</strong>：DeepEP 的两种模式（低延迟 LL / 高吞吐 HT）、NCCL EP、UBEP；NVLink 的 Copy Engine 可以把搬运从 SM 上卸下来。</li>
+          <li><strong>分离式部署</strong>：MegaScale-Infer（attention 与 FFN 拆开）、Step-3 AFD、JANUS（单卡吞吐 4.7×）、FinDEP、NanoCP——把"门诊"和"住院部"分成两栋楼，各自按需扩床位。</li>
+        </ul>
+        <p class="si-ref">关键论文：DeepEP, 2025 · MegaScale-Infer, 2025 · Step-3 AFD, 2025 · JANUS, 2025</p>
+      </div>
+
+      <p class="lead">城堡越盖越大，一间房不够了，只好盖成 61 层楼。</p>
+      <p>小词这下惨了。它拿到的 8 张房卡，可能分布在 3 栋楼里。它得从这栋楼跑到那栋楼，敲 3 次门，再跑回来。</p>
+      <p>跑腿费有多贵？城堡的账房先生算过：</p>
+
+      <div class="story-quote">
+        <p>每层楼，跑腿费 939MB。61 层楼，57GB。</p>
+        <span class="who">——而且这还只是小词自己的行李，没算挂号单和排队时间</span>
+      </div>
+
+      <p>账房先生急得直跺脚："这哪是城堡，这是个快递分拣中心！"</p>
+      <p>小词问："那我能不能只在一个楼里干活？"</p>
+      <p>账房先生说："不行。8 个房间分散在不同楼，是因为每栋楼只装得下一部分工匠。你要找的工匠，可能这栋楼有、那栋楼也有——你得挨个跑。"</p>
+
+      <aside class="note">
+        <div class="note-title">工匠笔记 · 939MB 是怎么算出来的</div>
+        <p style="margin:0 0 10px;">单层楼、单个 batch 的跑腿量：<code>V = 2 · T · k · d · b</code>。T 是 batch 里的客人数，k 是每人进几个房间，d 是向量宽度，b 是每个数占几个字节，系数 2 是"去程 + 回程"。</p>
+        <p style="margin:0 0 10px;">代入 DeepSeek-V3：T=4096，k=8，d=7168，BF16 下 b=2——<br><code>2 × 4096 × 8 × 7168 × 2 ≈ 939 MB</code>。61 层就是约 <strong>57 GB</strong>。</p>
+        <p style="margin:0;">这还没算挂号单（路由元数据）、空跑（padding）和对端排队。所以 MoE 推理的瓶颈常常不在矩阵乘，而在<strong>网络</strong>。</p>
+      </aside>
+
+      <p>于是城堡开始琢磨一件事：<strong>能不能让跑腿和干活同时进行？</strong></p>
+
+      <h3>传送带</h3>
+      <p>有的楼装了"传送带"，小词在 A 楼干活时，B 楼的工匠已经在准备下一个客人了。这条传送带叫 <strong>DeepEP</strong>，分两种速度：慢车（低延迟模式）服务零散客人，快车（高吞吐模式）服务成批客人。</p>
+      <p>慢车的好处是随到随走，坏处是每次只拉几个人；快车的好处是一次拉一大车，坏处是要等车装满。城堡的调度员每天在两者之间切换——白天客人零散，开慢车；夜里客人成批，开快车。</p>
+
+      <h3>分楼</h3>
+      <p>有的城堡干脆把"门诊"和"住院部"分成两栋楼：看病的楼专门看病，开药的楼专门开药，各自按需扩床位。这叫<strong>分离式部署</strong>。有个叫 JANUS 的城堡用了这招，单栋楼的吞吐量涨了 <span class="figure">4.7 倍</span>。</p>
+      <p>分楼的好处是：门诊楼的客人来得快、走得快，住院部的客人来得慢、待得久，两种节奏互不打扰；坏处是：两栋楼之间又多了一条跑腿的路。</p>
+
+      <h3>专用通道</h3>
+      <p>还有的楼，把"跑腿"这件事交给了一条专门的传送通道，连工匠的手都不占——这条通道平时用来搬货（NVLink 的 Copy Engine），闲着也是闲着。</p>
+
+      <aside class="note">
+        <div class="note-title">工匠笔记 · 为什么 MoE 偏爱"专家并行"</div>
+        <p style="margin:0 0 10px;">切分模型有好几种切法：<strong>张量并行</strong>把每个矩阵切开，每层都要全卡同步一次；<strong>专家并行</strong>把不同工匠分到不同卡，只在 MoE 层传客人。</p>
+        <p style="margin:0 0 10px;">MoE 选后者，因为传客人的量和"实际被分诊的客人数"成正比——稀疏时更省；而张量并行的通信量跟向量宽度成正比，每层都跑不掉，跨楼还特别慢。</p>
+        <p style="margin:0;">代价是：专家并行度越高，每个工匠手头的客人越少，矩阵乘越小、效率越低。所以 V3 的对策是<strong>按阶段换并行度</strong>：prefill（成批客人）用 EP32，decode（零散客人）用 EP320——每张卡一个工匠，靠大 batch 摊薄。</p>
+      </aside>
+
+      <p>小词后来才明白：城堡越聪明，跑腿的路就越长。它解决一个瓶颈的办法，往往是把瓶颈搬到下一个地方。</p>
+    </section>
+
+    <!-- 第五章 -->
+    <section class="chapter" id="ch5">
+      <div class="chapter-head">
+        <span class="chapter-no">05</span>
+        <h2>城堡的十年<span class="en">Ten Years of Moving Bottlenecks</span></h2>
+      </div>
+
+      <div class="special-intro">
+        <div class="si-label">专业导读 · 十年时间线</div>
+        <p class="si-lead">十年 MoE 史，是一部"瓶颈搬家史"：容量 → 路由 → 通信 → 部署与内存。每一代论文都在回答"这一代什么变贵了"。</p>
+        <ul>
+          <li><strong>1991 · Jacobs</strong>：多个专家 + 门控，想法诞生；但没有稀疏训练手段，专家还是全激活。</li>
+          <li><strong>2017 · Shazeer</strong>：top-k 稀疏门控，137B 参数，第一次证明"只激活少数专家"能训得动。</li>
+          <li><strong>2020 · GShard</strong>：600B 参数、2048 台 TPU、4 天训完——MoE 第一次上大规模集群。</li>
+          <li><strong>2021 · Switch Transformer</strong>：top-1 + aux loss，1.6T 参数，把 MoE 变成"可复制的配方"。</li>
+          <li><strong>2022 · ST-MoE</strong>：aux loss + z-loss，稳定性成为一等公民。</li>
+          <li><strong>2023 · Mixtral 8x7B</strong>：开源社区第一次拿到好用的 MoE；专家多但重复干活的问题暴露。</li>
+          <li><strong>2024 · DeepSeek-V2/V3</strong>：细粒度专家 + 共享专家 + aux-loss-free + FP8 + MTP，671B/37B，14.8T tokens 零 spike。</li>
+          <li><strong>2025 · Kimi K2</strong>：1.04T 参数，万亿级开源。</li>
+          <li><strong>2026 · V4-Pro / K3 / GLM-5 / Qwen3.8-Flash-Next</strong>：更大、更稀疏、更省。</li>
+          <li><strong>三条线</strong>：容量线（600B→1.6T→2.8T，稀疏度 4×→18×→56×）；效率线（激活 97B→37B→13B→6B）；部署线（单卡→EP→分离式）。</li>
+        </ul>
+        <p class="si-ref">关键论文：Jacobs 1991 · Shazeer 2017 · GShard 2020 · Switch 2021 · ST-MoE 2022 · Mixtral 2023 · V2/V3 2024 · K2 2025 · V4/K3 2026</p>
+      </div>
+
+      <p class="lead">小词后来听城堡里的老工匠讲古，才知道这座城堡不是一天建成的。</p>
+      <p>它是一部<strong>"问题搬家史"</strong>——每解决一个烦恼，就冒出一个新烦恼。</p>
+      <p>老工匠坐在壁炉边，一边烤火一边讲。小词搬了个小板凳，听得入了神。</p>
+
+      <h3>1991：一个想法</h3>
+      <p>有个叫 Jacobs 的人第一次提出"分诊"的想法。他写了一篇论文，说：与其让一个大夫看所有病，不如雇几个专科大夫，再请一个分诊台。可那时候，所有工匠还是都得上，城堡越大越累。想法很好，没人用得动。</p>
+
+      <h3>2017：只叫两个</h3>
+      <p>一个叫 Shazeer 的人定下了"只叫 2 个工匠"的规矩。城堡第一次真正省了力气，可客人开始扎堆，还老漏号（丢 token）。老工匠说，那几年城堡的账本上，一半是"省下来的力气"，一半是"丢掉的客人"。</p>
+
+      <h3>2020–2022：开连锁店</h3>
+      <p>城堡学会了开连锁店。<span class="figure">6000 亿</span>工匠的城堡，在 2048 台机器上盖了 4 天就盖好了。可楼与楼之间的跑腿，成了新噩梦。老工匠说，那几年城堡里最忙的人不是工匠，是搬运工。</p>
+
+      <h3>2023：对外开放</h3>
+      <p>Mixtral 城堡对外开放，普通人也开得起小城堡了。可工匠太多，很多人在重复干一样的活。老工匠说，那几年城堡里最常听见的一句话是："这活儿我昨天不是干过了吗？"</p>
+
+      <h3>2024：把工匠切细</h3>
+      <p>DeepSeek 城堡的管家想出了"把工匠切细 + 留一个全科门诊"的办法——<strong>细粒度专家 + 共享专家</strong>。这一招，后来被全城的城堡抄了个遍。老工匠说，这是城堡史上第一次"别人来抄我们"。</p>
+
+      <h3>2025：万亿级</h3>
+      <p>城堡扩到了万亿级。Kimi 的城堡有 <span class="figure">1.04 万亿</span>工匠，DeepSeek 的有 <span class="figure">6710 亿</span>。可跑腿费也跟着涨到了 57GB。老工匠说，那一年城堡的账本上，跑腿费第一次超过了工钱。</p>
+
+      <h3>2026：分身术、压缩术、解耦术</h3>
+      <p>最气派的几座城堡——DeepSeek-V4（<span class="figure">1.6 万亿</span>工匠）、Kimi K3（<span class="figure">2.8 万亿</span>工匠）——学会了分身术、压缩术和解耦术。K3 的城堡有 <span class="figure">896</span> 个房间，每个客人只进 <span class="figure">16</span> 个，稀疏度 56 倍，是当世之最。</p>
+
+      <aside class="note">
+        <div class="note-title">工匠笔记 · 十年演进的三条线</div>
+        <p style="margin:0 0 10px;"><strong>容量线</strong>：总参数 600B → 1.6T → 2.8T，稀疏度（总参数 ÷ 激活参数）4× → 18× → 56×。</p>
+        <p style="margin:0 0 10px;"><strong>效率线</strong>：每客人激活参数 97B（GLaM）→ 37B（V3）→ 13B（V4-Flash）→ 6B（Qwen3.8-Flash-Next）。</p>
+        <p style="margin:0;">三条线不是并行的，是互相逼出来的：容量涨 → 通信涨 → 逼出分离式部署 → 逼出语义与物理解耦。所以 2026 年的前沿已经不是"怎么更稀疏"，而是"怎么把稀疏的城堡跑得更快"。</p>
+      </aside>
+
+      <p>老工匠讲完，往火里添了块柴："你看，城堡每解决一个烦恼，就把烦恼搬到了下一个地方。搬到最后，烦恼已经不在工匠身上了——在楼与楼之间，在灯与灯之间。"</p>
+      <p>小词问："那下一个烦恼会搬到哪儿？"</p>
+      <p>老工匠笑了："不知道。但我知道，一定会有下一个。"</p>
+    </section>
+
+    <!-- 第六章 -->
+    <section class="chapter" id="ch6">
+      <div class="chapter-head">
+        <span class="chapter-no">06</span>
+        <h2>小词的结局<span class="en">Homecoming</span></h2>
+      </div>
+
+      <div class="special-intro">
+        <div class="si-label">专业导读 · 2026 年的四条路线</div>
+        <p class="si-lead">2026 年的旗舰不再比"谁更稀疏"，而是比"谁把稀疏跑得更快"。四条路线：更大更稀疏、更小更省、更少层、更会省 KV。</p>
+        <ul>
+          <li><strong>更大更稀疏 · DeepSeek-V4-Pro</strong>：1.6T 总参数 / 49B 激活，384+1 个专家，top-6，32T 训练 token，1M 上下文；官方称其 FLOPs 只有 V3.2 的 27%。同代 V4-Flash：284B/13B。</li>
+          <li><strong>更大更稀疏 · Kimi K3</strong>：2.8T/104B，896 个专家，top-16，稀疏度 56；扩展效率比 K2 高约 2.5 倍。</li>
+          <li><strong>更少层 · GLM-5</strong>：744B/40B，256 个专家，80 层——刻意压层数，减少跨楼通信。</li>
+          <li><strong>更小更省 · Qwen3.8-Flash-Next</strong>：125B/6B，另有 51B 的 n-gram 表放在加速器外；训练 FLOPs 只有前代的 1/9。</li>
+          <li><strong>压缩术</strong>：MoQE 把专家压到 2-bit；QMoE 把 1.6T 模型压到 160GB（平均 0.8 bit/param）；V4.1-Flash 的 FP4 KV 只占 890 字节/token，1M 上下文才装得下。</li>
+          <li><strong>哈希路由</strong>：V4 的前 3 层直接用 token 编号分专家，连门卫都省了——用"确定性"换掉"学出来的分诊"。</li>
+        </ul>
+        <p class="si-ref">关键论文：DeepSeek-V4, 2026 · Kimi K3, 2026 · GLM-5, 2026 · Qwen3.8, 2026 · QMoE, 2023 · MoQE, 2023 · V4.1-Flash, 2026</p>
+      </div>
+
+      <p class="lead">故事的最后，小词又走进了一座 2026 年的新城堡。</p>
+      <p>这座城堡和它第一次进的那座，已经大不一样了。</p>
+
+      <p><strong>门口没有门卫。</strong></p>
+      <p>小词愣了一下，正要开口问，墙上的一块牌子先说话了："前三个门不用我，看你的编号就行。"</p>
+      <p>小词低头看自己的编号——那是一串它从来没注意过的数字。前三个房间的门，就按这串数字开。这叫<strong>哈希路由</strong>，只在 V4 的前 3 层用。</p>
+      <p>小词后来才懂：门卫的分诊是学出来的，学出来的东西会偏心、会排队；哈希路由是算出来的，算出来的东西不偏心，但也不聪明。所以城堡只在最前面三层用它——那三层不需要聪明，只需要快。</p>
+
+      <p><strong>城堡分成了两栋楼。</strong>门诊一栋，住院部一栋，各自按需扩床位。</p>
+
+      <p><strong>工匠们的"本事档案"被压缩成了小册子。</strong>每个工匠的本事只占原来四分之一的地方——甚至更少。有的城堡把 1.6 万亿工匠的档案压到 160GB，只占原来 1/20。</p>
+
+      <p><strong>小词的"病历摘要"也变薄了。</strong>它现在只带 <span class="figure">890 字节</span>——是上一代城堡的四分之一。它能在城堡里待上<strong>一百万个 token</strong> 那么久，也不嫌挤。</p>
+
+      <p>小词走出城堡时，回头看了一眼。</p>
+      <p>它想：这座城堡真奇怪。它明明有 2800 万亿个工匠的本事，却只让每个客人见 16 个；它明明省了力气，却要占 1.3TB 的房子；它明明解决了排队，却又在楼与楼之间堵起了车。</p>
+      <p>但它还是觉得，这座城堡是聪明的。</p>
+      <p>因为<strong>它把"本事"和"力气"这两件事，分开了。</strong></p>
+      <p>而所有故事的秘密，往往就藏在这句话里。</p>
+
+      <aside class="note">
+        <div class="note-title">工匠笔记 · 2026 年的四座旗舰城堡</div>
+        <p style="margin:0 0 8px;"><strong>DeepSeek-V4-Pro</strong>：1.6T 总参数 / 49B 激活，384+1 个房间，每人进 6 个，1M 上下文，32T 训练 token。</p>
+        <p style="margin:0 0 8px;"><strong>Kimi K3</strong>：2.8T / 104B，896 个房间，每人进 16 个，稀疏度 56，比 K2 的扩展效率高约 2.5 倍。</p>
+        <p style="margin:0 0 8px;"><strong>GLM-5</strong>：744B / 40B，256 个房间，80 层——刻意压层数来减少跨楼通信。</p>
+        <p style="margin:0;"><strong>Qwen3.8-Flash-Next</strong>：125B / 6B，另有 51B 的 n-gram 表放在加速器外——训练 FLOPs 只有前代的 1/9。</p>
+      </aside>
+    </section>
+
+    <!-- 尾声 -->
+    <section class="epilogue" id="epilogue">
+      <h2>故事讲完了</h2>
+      <ol>
+        <li><strong>MoE 就是开一家 256 个专科的医院，但每个病人只看 8 个科室</strong>——本事大，力气小。</li>
+        <li><strong>它最大的敌人不是算力，是"排队"和"跑腿"</strong>——负载不均和跨卡通信，占了 100 篇论文的九成篇幅。</li>
+        <li><strong>十年演进就是"问题搬家"</strong>——每解决一个瓶颈，就把它推到下一个位置：容量 → 路由 → 通信 → 部署与内存。</li>
+        <li><strong>2026 年的分野：不再比"谁更稀疏"，而是比"谁把稀疏跑得更快"</strong>——量化、分离式部署、KV 压缩、哈希路由，都是在给稀疏的城堡减负。</li>
+        <li><strong>读 MoE 论文的方法：先问"它把瓶颈搬到了哪里"</strong>，再看它用什么代价换来了什么。</li>
+      </ol>
+      <p class="closing">所以下一次你看到"671B 参数、37B 激活"这样的数字时，可以想起小词：它走进的那座城堡，灯全亮着，而它只敲了 8 扇门。</p>
+    </section>
+
+    <!-- 附录 -->
+    <section class="appendix" id="appendix">
+      <h2>数字速查</h2>
+      <p class="appendix-sub">故事里提到的每个数字，都来自论文原文。这里按"一个客人、一座城堡、一条路"归了三类。</p>
+
+      <div class="table-wrap">
+        <table class="numbers">
+          <thead>
+            <tr>
+              <th>数字</th>
+              <th>含义</th>
+              <th>出处</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>671B / 37B</td>
+              <td class="num">DeepSeek-V3 总参数 / 每 token 激活</td>
+              <td>V3 技术报告</td>
+            </tr>
+            <tr>
+              <td>256 + 1 / top-8</td>
+              <td class="num">256 个路由专家 + 1 个共享专家，每人激活 8 个</td>
+              <td>V3 技术报告</td>
+            </tr>
+            <tr>
+              <td>61 层 / d=7168</td>
+              <td class="num">V3 的层数与隐藏维度</td>
+              <td>V3 技术报告</td>
+            </tr>
+            <tr>
+              <td>1.3 TB</td>
+              <td class="num">671B 参数以 BF16 存放所需显存</td>
+              <td>按 2 字节/参数折算</td>
+            </tr>
+            <tr>
+              <td>1–2%</td>
+              <td class="num">batch=1 时 GPU 算力利用率</td>
+              <td>MoE 推理系统综述</td>
+            </tr>
+            <tr>
+              <td>1 FLOP/byte</td>
+              <td class="num">BF16 decode 的算术强度（H100 拐点为 295）</td>
+              <td>同上</td>
+            </tr>
+            <tr>
+              <td>939 MB / 层</td>
+              <td class="num">V3 单层 all-to-all 通信量（2·T·k·d·b）</td>
+              <td>按 T=4096, k=8, d=7168 折算</td>
+            </tr>
+            <tr>
+              <td>57 GB</td>
+              <td class="num">61 层累计跨设备流量</td>
+              <td>同上</td>
+            </tr>
+            <tr>
+              <td>EP32 / EP320</td>
+              <td class="num">V3 在 prefill / decode 阶段使用的专家并行度</td>
+              <td>V3 技术报告</td>
+            </tr>
+            <tr>
+              <td>14.8 T tokens</td>
+              <td class="num">V3 预训练 token 数，全程零不可恢复 spike</td>
+              <td>V3 技术报告</td>
+            </tr>
+            <tr>
+              <td>2.788 M H800 小时</td>
+              <td class="num">V3 全流程训练成本</td>
+              <td>V3 技术报告</td>
+            </tr>
+            <tr>
+              <td>4.7×</td>
+              <td class="num">JANUS 分离式部署的单卡吞吐提升</td>
+              <td>JANUS 论文（2025）</td>
+            </tr>
+            <tr>
+              <td>890 B / token</td>
+              <td class="num">V4.1-Flash 的全局 KV 占用（FP4，约 V4-Flash 的 1/4）</td>
+              <td>V4.1-Flash 技术报告</td>
+            </tr>
+            <tr>
+              <td>2.8 T / 104 B</td>
+              <td class="num">Kimi K3 总参数 / 激活参数</td>
+              <td>K3 技术报告</td>
+            </tr>
+            <tr>
+              <td>896 / 16</td>
+              <td class="num">K3 路由专家数 / 每 token 激活数（稀疏度 56）</td>
+              <td>K3 技术报告</td>
+            </tr>
+            <tr>
+              <td>2.5×</td>
+              <td class="num">K3 相对 K2 的扩展效率提升</td>
+              <td>K3 技术报告</td>
+            </tr>
+            <tr>
+              <td>27%</td>
+              <td class="num">V4-Pro 的 FLOPs 相对 V3.2 的比例</td>
+              <td>V4 技术报告</td>
+            </tr>
+            <tr>
+              <td>32 T tokens</td>
+              <td class="num">V4-Pro 训练 token 数</td>
+              <td>V4 技术报告</td>
+            </tr>
+            <tr>
+              <td>1/9</td>
+              <td class="num">Qwen3.8-Flash-Next 训练 FLOPs 相对前代的比例</td>
+              <td>Qwen3.8 技术报告</td>
+            </tr>
+            <tr>
+              <td>0.8 bit / param</td>
+              <td class="num">QMoE 把 1.6T 模型压到 160GB 的平均位宽</td>
+              <td>QMoE 论文（2023）</td>
+            </tr>
+            <tr>
+              <td>n<sup>−1/2</sup></td>
+              <td class="num">sigmoid 门控下路由专家的收敛速率（softmax 为 n<sup>−1/4</sup>）</td>
+              <td>arXiv:2505.10860</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 术语小抄 -->
+    <section class="glossary-section" id="glossary">
+      <h2>术语小抄</h2>
+      <p class="glossary-sub">读完故事，把这 17 个词记住，再去读论文就不会卡住。</p>
+
+      <dl class="glossary">
+        <dt>专家<span class="en-term">Expert</span></dt>
+        <dd>MoE 层里一个独立的 FFN 子网络。V3 一层有 256 个路由专家。</dd>
+
+        <dt>路由 / 门控<span class="en-term">Router / Gating</span></dt>
+        <dd>决定每个 token 去哪些专家的打分网络，也就是故事里的"门卫"。</dd>
+
+        <dt>top-k</dt>
+        <dd>每个 token 激活的专家个数。V3 是 8，V4-Pro 是 6，K3 是 16。</dd>
+
+        <dt>稀疏度<span class="en-term">Sparsity</span></dt>
+        <dd>总参数 ÷ 激活参数。V3 约 18×，K3 约 56×。稀疏度越高，同样算力下容量越大。</dd>
+
+        <dt>共享专家<span class="en-term">Shared Expert</span></dt>
+        <dd>每个 token 都会经过的那个专家，用来兜住通用知识——故事里那间"全科门诊"。</dd>
+
+        <dt>容量因子<span class="en-term">Capacity Factor</span></dt>
+        <dd>每个专家最多接收多少 token 的上限。超出上限的 token 会被丢掉。</dd>
+
+        <dt>丢 token<span class="en-term">Token Dropping</span></dt>
+        <dd>专家容量满了，多出来的 token 被丢弃，句子因此断裂。第一代负载均衡就是为了治它。</dd>
+
+        <dt>负载坍缩<span class="en-term">Load Collapse</span></dt>
+        <dd>token 扎堆到少数热门专家，其余专家闲置——城堡白养了一大半工匠。</dd>
+
+        <dt>辅助损失<span class="en-term">Aux Loss</span></dt>
+        <dd>逼负载均衡的正则项，加在主损失旁边。有效，但会污染语言建模的梯度。</dd>
+
+        <dt>aux-loss-free</dt>
+        <dd>V3 的做法：用不进梯度的偏置 b<sub>i</sub> 调排序，把均衡从梯度里拿出去。</dd>
+
+        <dt>专家并行<span class="en-term">EP · Expert Parallelism</span></dt>
+        <dd>把不同专家放到不同设备上，只在 MoE 层交换 token。</dd>
+
+        <dt>All-to-all</dt>
+        <dd>token 在设备之间"换乘"的通信模式，MoE 推理的主要开销。</dd>
+
+        <dt>DeepEP</dt>
+        <dd>DeepSeek 开源的 all-to-all 通信库，分低延迟（LL）和高吞吐（HT）两种模式。</dd>
+
+        <dt>分离式部署<span class="en-term">Disaggregated Serving</span></dt>
+        <dd>把 attention 和 FFN 拆到不同机器/阶段（MegaScale-Infer、Step-3 AFD、JANUS），各自按需扩容。</dd>
+
+        <dt>KV cache</dt>
+        <dd>推理时缓存的历史 key/value，长上下文的显存大头。V4.1-Flash 用 FP4 压到 890 字节/token。</dd>
+
+        <dt>量化<span class="en-term">Quantization</span></dt>
+        <dd>把权重、激活或 KV 压到更低比特。QMoE 把 1.6T 模型压到 160GB，平均 0.8 bit/参数。</dd>
+
+        <dt>哈希路由<span class="en-term">Hash Routing</span></dt>
+        <dd>用 token 编号直接决定专家，不学门控。V4 的前 3 层用它省掉门卫。</dd>
+      </dl>
+    </section>
+
+    <footer>
+      <p>《小词的奇幻漂流》· 精读版 · 基于 100 篇 MoE 论文整理</p>
+      <p>57 篇深读 · 43 篇摘要级 · 6 篇专业导读 · 2026 年 11 月 11 日</p>
+    </footer>
+
+  </main>
+</div>
+
+<button id="theme-toggle" aria-label="切换主题" title="切换明暗主题">◐</button>
+<button id="to-top" aria-label="回到顶部" title="回到顶部">↑</button>
+
+<script>
+(function () {
+  // 阅读进度
+  var bar = document.getElementById('progress');
+  var toTop = document.getElementById('to-top');
+  function onScroll() {
+    var doc = document.documentElement;
+    var total = doc.scrollHeight - doc.clientHeight;
+    var pct = total > 0 ? (doc.scrollTop / total) * 100 : 0;
+    bar.style.width = pct.toFixed(2) + '%';
+    if (doc.scrollTop > 600) { toTop.classList.add('show'); }
+    else { toTop.classList.remove('show'); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // 目录高亮
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc-link'));
+  var targets = links.map(function (a) {
+    return document.querySelector(a.getAttribute('href'));
+  }).filter(Boolean);
+
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var id = '#' + e.target.id;
+        links.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === id);
+        });
+      });
+    }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+    targets.forEach(function (t) { obs.observe(t); });
+  }
+
+  // 主题
+  var root = document.documentElement;
+  var toggle = document.getElementById('theme-toggle');
+  var saved = null;
+  try { saved = localStorage.getItem('moe-theme'); } catch (e) {}
+  if (saved) { root.setAttribute('data-theme', saved); }
+  toggle.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('moe-theme', next); } catch (e) {}
+  });
+
+  // 回到顶部
+  toTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+
+</body>
+</html>

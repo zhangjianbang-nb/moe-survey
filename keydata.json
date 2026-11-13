@@ -1,0 +1,1081 @@
+{
+ "2006.16668": {
+  "id": "2006.16668",
+  "chars": 122249,
+  "total_params": [
+   "sformer model with Sparsely-Gated Mixture-of-Experts beyond 600 billion parameters using automatic sharding. We demonstrate that such a g",
+   "in computation cost increase from 6 to 22 years (3.6x). The 600B parameters model that achieved the best translation quality was t",
+   "ore-years. Our best quality dense single Transformer model (2.3B parameters) achieving ∆BLEU of 6.1, was trained with GPipe [15] o"
+  ],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2101.03961": {
+  "id": "2101.03961",
+  "chars": 100511,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "ts. Shazeer et al. (2017) conjec- tured that routing to k > 1 experts was necessary in order to have non-trivial gradients to the",
+   "Log Perp.=-1.50. All MoE and Switch Transformer models use 128 experts, with experts at every other feed-forward layer. For Switch"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2103.16716": {
+  "id": "2103.16716",
+  "chars": 40608,
+  "total_params": [
+   "curacy tradeoff. Extensive experiments with models of up to 110B param- eters demonstrate large performance gains over standard da",
+   "memory of a single worker device—limiting models to roughly 1.5B parameters in our setup. Model Parallel Training Model parallel t",
+   "nstant; BASE×N use ⌊10 N ⌋sublayers, for a total of roughly 44B parameters. We use one expert per GPU per BASE layer. 4.2. Compar"
+  ],
+  "act_params": [],
+  "experts": [
+   "sely Gated MoE layer routes tokens to multiple experts (top-2 experts in our ex- periments), whereas a Switch layer routes tokens",
+   "oE models and Switch transformers. otherwise speciﬁed. With 128 experts in each expert layer, our Sparsely Gated MoE and Switch mod",
+   "expert assigned at time t. 0 20 40 60 80 100 120 0 2 4 6 8 10 Experts (sorted by usage) Percentage of Tokens Routed to Expert Spa"
+  ],
+  "act_experts": [
+   "Sparsely Gated MoE layer routes tokens to multiple experts (top-2 experts in our ex- periments), whereas a Switch layer routes tokens"
+  ],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2202.01169": {
+  "id": "2202.01169",
+  "chars": 104218,
+  "total_params": [
+   "outing via Reinforcement Learning (RL-R). With models up to 200 billion parameters, we observe the following: 1. Routing improves the per"
+  ],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2202.08906": {
+  "id": "2202.08906",
+  "chars": 119860,
+  "total_params": [
+   "as a design guide. We conclude by scaling a sparse model to 269B parameters, with a computational cost comparable to a 32B dense e",
+   "as a design guide. We conclude by scaling a sparse model to 269B parameters, with a computational cost comparable to a 32B dense encod"
+  ],
+  "act_params": [],
+  "experts": [
+   "ingual corpus mC4 (Xue et al., 2020). Each sparse model has 32 experts and we introduce a sparse MoE layer for 3See Fedus et al. ("
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2202.09368": {
+  "id": "2202.09368",
+  "chars": 46678,
+  "total_params": [],
+  "act_params": [
+   "d provides over 2× faster training convergence in a 8B/64E (8 billion activated parameters, 64 experts) model, compared to the top-1 and",
+   "d provides over 2× faster training convergence in a 8B/64E (8 billion activated parameters, 64 experts) model, compared to the top-1 and to"
+  ],
+  "experts": [
+   "ng convergence in a 8B/64E (8 billion activated parameters, 64 experts) model, compared to the top-1 and top-2 gating counterparts",
+   "points on average. In addition, EC-CAP3 allows a maximum of 3 experts per token and achieves on par results compared to the vanil",
+   "erts and only about 3% tokens have been routed to more than 4 experts. This plot veriﬁes our hypothesis that our method learns to"
+  ],
+  "act_experts": [],
+  "tokens": [
+   "Dataset: We use the high-quality dataset from GLaM [? ] of 1.6 trillion tokens that are representative of a wide range of natural language",
+   "Dataset: We use the high-quality dataset from GLaM [? ] of 1.6 trillion tokens that are representative of a wide range of natural language"
+  ],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2206.03382": {
+  "id": "2206.03382",
+  "chars": 82150,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "accuracy of SwinV2-S model is re- ported. Hyper-parameters: 32 experts, top-1 routing, capacity factor f=infinity. kens from train",
+   "settings: fflayer hidden size 4K, fflayer channel size 4K, 2 experts per GPU, 64K tokens per iteration. According to our experim"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [
+   "hidden size 4K, fflayer channel size 4K, 2 experts per GPU, 64K tokens per iteration. According to our experiments, statically adop"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2208.02813": {
+  "id": "2208.02813",
+  "chars": 116148,
+  "total_params": [],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2211.15841": {
+  "id": "2211.15841",
+  "chars": 62150,
+  "total_params": [],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2308.00951": {
+  "id": "2308.00951",
+  "chars": 90974,
+  "total_params": [
+   "ing one slot per expert. We train models ranging from 1B to 54B parameters. All models were trained for 4M steps, except for H/14",
+   "ing one slot per expert. We train models ranging from 1B to 54B parameters. All models were trained for 4M steps, except for H/14, wh"
+  ],
+  "act_params": [],
+  "experts": [
+   "). Furthermore, Soft MoE scales well: Soft MoE Huge/14 with 128 experts in 16 MoE layers has over 40× more parameters than ViT Huge",
+   "ly changes when the number of experts increases from 8 to 4 096 experts, while Sparse MoEs take a significant hit. Normalization In",
+   "in ViT S/16, B/16, L/16, and H/14 with Soft MoE layers with 128 experts, using one slot per expert. We train models ranging from 1B"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2310.02410": {
+  "id": "2310.02410",
+  "chars": 27851,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "bandwidth overhead is introduced, even when employing just 32 experts without a corresponding increase in theoretical FLOPs, as i",
+   "hts (sentences/second) (fp16) in GB Dense 14.02 1.18 - MoE (32 experts) 5.37 9.91 92.8 % Difference 0.38X 8.38X - In spite of the",
+   ") - - MoE Baseline fp16 46.35 (+2.87) 1.00X 1.00X MoE 5.3B (32 experts) int8 46.34 (+2.85) 1.16X 0.54X int4 46.18 (+2.49) 1.24X 0."
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2310.16795": {
+  "id": "2310.16795",
+  "chars": 64612,
+  "total_params": [
+   "been used to successfully compress large dense models up to 176 billion parameters (Frantar et al., 2022; Wu et al., 2023), applying them",
+   "been used to successfully compress large dense models up to 176 billion parameters (Frantar et al., 2022; Wu et al., 2023), applying them to"
+  ],
+  "act_params": [],
+  "experts": [
+   "022), which we focus on in this study, uses between 128 and 2048 experts (layer replicas) to signifi- cantly outperform standard den",
+   "(2022) report similar improvements, on different tasks, for 512 experts. However, these results come at the cost of dramatic increa"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2401.04088": {
+  "id": "2401.04088",
+  "chars": 32151,
+  "total_params": [
+   "ent at each timestep. As a result, each token has access to 47B parameters, but only uses 13B active parameters during inference.",
+   "per token while outperforming the previous best model using 70B parameters per token (Llama 2 70B). We are making our trained and",
+   "ent at each timestep. As a result, each token has access to 47B parameters, but only uses 13B active parameters during inference. Mix"
+  ],
+  "act_params": [],
+  "experts": [
+   "of Experts Layer. Each input vector is assigned to 2 of the 8 experts by a router. The layer’s output is the weighted sum of the"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [
+   "uring inference. Mixtral was trained with a context size of 32k tokens and it outperforms or matches Llama 2 70B and GPT-3.5 across",
+   "s pretrained with multilingual data using a context size of 32k tokens. It either matches or exceeds the performance of Llama 2 70",
+   "uccessfully retrieve information from its context window of 32k tokens, regardless of the sequence length and the location of the"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2401.06066": {
+  "id": "2401.06066",
+  "chars": 93368,
+  "total_params": [
+   "ndancy in routed experts. Starting from a modest scale with 2B parameters, we demonstrate that DeepSeekMoE 2B achieves comparabl",
+   "und of MoE models. Subsequently, we scale up DeepSeekMoE to 16B parameters and show that it achieves comparable performance with",
+   "Further, our preliminary efforts to scale up DeepSeekMoE to 145B parameters consistently validate its substantial advantages over"
+  ],
+  "act_params": [
+   "based on top-1 hash routing, with 2.0B total parameters and 0.2B activated parameters, aligned with the dense baseline. Switch Trans",
+   "learnable routing strategy, with 2.0B total parameters and 0.3B activated parameters since one more expert is activated compared to",
+   "based on top-1 hash routing, with 2.0B total parameters and 0.2B activated parameters, aligned with the dense baseline. Switch Trans-"
+  ],
+  "experts": [
+   "top-1 routing methods. DeepSeekMoE has 1 shared expert and 63 routed experts, where each expert is 0.25 times the size of a standard FFN"
+  ],
+  "act_experts": [],
+  "tokens": [
+   "16B and train DeepSeekMoE 16B on a large-scale corpus with 2T tokens. Evaluation results reveal that with only about 40% of comp",
+   "16B and train DeepSeekMoE 16B on a large-scale corpus with 2T tokens. Evaluation results reveal that with only about 40% of comp"
+  ],
+  "context": [
+   "B # Activated Params N/A 0.2B 0.2B 0.2B 0.3B 0.3B FLOPs per 2K Tokens N/A 2.9T 2.9T 2.9T 4.3T 4.3T # Training Tokens N/A 100B 100B",
+   "B # Activated Expert Params N/A 0.35B 1.89B 0.24B FLOPs per 2K Tokens N/A 5.8T 24.6T 4.3T # Training Tokens N/A 100B 100B 100B Pil"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2405.04434": {
+  "id": "2405.04434",
+  "chars": 109323,
+  "total_params": [
+   "y economical training and efficient inference. It comprises 236B total parameters, of which 21B are activated for each token, and suppor",
+   "ve Transformer architecture. It is equipped with a total of 236B parameters, of which 21B are activated for each token, and suppor",
+   "epSeekMoE, for the open-source community. It has a total of 15.7B parameters, where 2.4B are activated for each token. Detailed des"
+  ],
+  "act_params": [
+   "its potential. Evaluation results show that, even with only 21B activated parameters, DeepSeek-V2 and its chat versions still achie",
+   "-source models. Evaluation results show that even with only 21B activated parameters, DeepSeek-V2 still achieves top-tier performan",
+   "its potential. Evaluation results show that, even with only 21B activated parameters, DeepSeek-V2 and its chat versions still achieve"
+  ],
+  "experts": [
+   "MoE layers. Each MoE layer consists of 2 shared experts and 160 routed experts, where the intermediate hidden dimension of each expert is",
+   "dimension of each expert is 1536. Among the routed experts, 6 experts will be activated for each token. In addition, the low-rank"
+  ],
+  "act_experts": [],
+  "tokens": [
+   "-V2 on a high-quality and multi-source corpus consisting of 8.1T tokens, and further perform Supervised Fine-Tuning (SFT) and Reinf",
+   "-quality and multi-source pre-training corpus consisting of 8.1T tokens. Compared with the corpus used in DeepSeek 67B (our previou",
+   "y size of 100K. Our tokenized pre- training corpus contains 8.1T tokens, where Chinese tokens are approximately 12% more than Engli"
+  ],
+  "context": [
+   "activated for each token, and supports a context length of 128K tokens. DeepSeek-V2 adopts innovative architectures including Mult",
+   "activated for each token, and supports a context length of 128K tokens. We optimize the attention modules and Feed-Forward Network",
+   ", of which 21B are activated for each token, and supports a context length of 128K tokens. DeepSeek-V2 adopts innovative architectures includi"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2407.06204": {
+  "id": "2407.06204",
+  "chars": 177210,
+  "total_params": [
+   "7B active parameters that rivals the performance of leading 7B parameter models such as the Mistral 7B [158] and the Qwen1.5-7B",
+   "7B active parameters that rivals the performance of leading 7B parameter models such as the Mistral 7B [158] and the Qwen1.5-7B [162"
+  ],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2408.15664": {
+  "id": "2408.15664",
+  "chars": 32740,
+  "total_params": [
+   "performance of Loss-Free Balancing on MoE models with up to 3B parameters trained on up to 200B tokens. Experimental results sho",
+   "e of Loss-Free Balancing, we train MoE language models with 1B parameters on 100B tokens and 3B parameters on 200B tokens from s",
+   "n MoE language models with 1B parameters on 100B tokens and 3B parameters on 200B tokens from scratch. Experimental results demo"
+  ],
+  "act_params": [],
+  "experts": [
+   "token (proof in Appendix D.1). For a 9-layer MoE model with 16 experts and an average of 2 experts per token, this amounts to 50 b",
+   ". For a 9-layer MoE model with 16 experts and an average of 2 experts per token, this amounts to 50 bits, sufficient for each tok",
+   "rs 9 11 Granularity ( dff dexpert ) 16 3 4 Shared experts 2 2 Routed experts 64 64 Activated routed experts 6 6 Yan-Quan Zhou, Tao Lei,"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2409.02060": {
+  "id": "2409.02060",
+  "chars": 184008,
+  "total_params": [
+   "cular, we pretrain OLMOE-1B-7B for 5.1 trillion tokens with 6.9B total parameters, of which only 1.3B are activated for each input token",
+   "nyLlama 1B [210], but requires more GPU memory to store its 7B total parameters. Our experiments show that MoEs train ∼2× faster than",
+   "forward pass, OLMOE- 1B-7B outperforms some dense LMs with 7B parameters such as Llama2-7B [183], but falls short of others lik"
+  ],
+  "act_params": [],
+  "experts": [
+   "to experts, e.g., as- signment on a per token basis (e.g., 2 experts per token) or per expert basis (e.g., 2 tokens per expert),",
+   "For each input token, the learned router network determines 8 experts to process it. We train OLMOE-1B-7B from scratch with two a",
+   "th the same configuration for 130B tokens. The MoE contains 64 experts out of which 8 are activated with an FFN dimension of 1,024"
+  ],
+  "act_experts": [
+   "For example, for 64 experts, the FFN dimension is 1,024 and 8 experts are activated, while for 32 experts it is 2,048 with 4 activated expert"
+  ],
+  "tokens": [
+   "e- ters but uses only 1B per input token. We pretrain it on 5 trillion tokens and further adapt it to create OLMOE-1B-7B-INSTRUCT. Our mo",
+   "ly-sized models. In particular, we pretrain OLMOE-1B-7B for 5.1 trillion tokens with 6.9B total parameters, of which only 1.3B are activate",
+   "mly at the beginning of each epoch and train for a total of 5.133T tokens (1.3 epochs following Muennighoff et al. [121]). During our"
+  ],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2412.10302": {
+  "id": "2412.10302",
+  "chars": 76619,
+  "total_params": [],
+  "act_params": [
+   ", DeepSeek-VL2- Small and DeepSeek-VL2, with 1.0B, 2.8B and 4.5B activated parameters respectively. DeepSeek- VL2 achieves competiti",
+   "ariants, 3B, 16B, and 27B. These LLMs have 0.57B, 2.4B, and 4.1B activated parameters respectively. We also greatly enhance our visi",
+   "epSeek-VL2-Small DeepSeek-VL2 Total parameters (LLM) 3B 16B 27B Activated parameters (LLM) 0.57B 2.4B 4.1B Vision Encoder SigLIP-SO"
+  ],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2412.14219": {
+  "id": "2412.14219",
+  "chars": 147976,
+  "total_params": [
+   "esearch institutions. The models range in size from 6.7B to 671B parameters, with varying architectures characterized by different",
+   "esearch institutions. The models range in size from 6.7B to 671B parameters, with varying architectures characterized by different num"
+  ],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2412.19437": {
+  "id": "2412.19437",
+  "chars": 150416,
+  "total_params": [
+   "k-V3, a strong Mixture-of-Experts (MoE) language model with 671B total parameters with 37B activated for each token. To achieve efficien",
+   "ce DeepSeek-V3, a large Mixture-of-Experts (MoE) model with 671B parameters, of which 37B are activated for each token. With a for",
+   "ce DeepSeek-V3, a large Mixture-of-Experts (MoE) model with 671B parameters, of which 37B are activated for each token. With a forward"
+  ],
+  "act_params": [
+   "xperts (MoE) language model with 671B total parameters with 37B activated for each token. To achieve efficient inference and cost-e",
+   "xperts (MoE) language model with 671B total parameters with 37B activated for each token. To achieve efficient inference and cost-eff"
+  ],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [
+   "0 GPU hours, we complete the pre-training of DeepSeek-V3 on 14.8T tokens, producing the currently strongest open-source base model.",
+   "0 GPU hours, we complete the pre-training of DeepSeek-V3 on 14.8T tokens, producing the currently strongest open-source base model."
+  ],
+  "context": [],
+  "gpu_hours": [
+   "ts excellent performance, DeepSeek-V3 requires only 2.788M H800 GPU hours for its full training. In addition, its training process is",
+   "osts Pre-Training Context Extension Post-Training Total in H800 GPU Hours 2664K 119K 5K 2788K in USD $5.328M $0.238M $0.01M $5.576M T",
+   "ing DeepSeek-V3 on each trillion tokens requires only 180K H800 GPU hours, i.e., 3.7 days on our cluster with 2048 H800 GPUs. Consequ"
+  ],
+  "mfu": []
+ },
+ "2501.11873": {
+  "id": "2501.11873",
+  "chars": 44329,
+  "total_params": [
+   "LBL. Through experiments on training MoEs-based LLMs (up to 42.8B total parameters and 400B tokens), we surprisingly find that the global",
+   "gs We conduct experiments on three sizes of MoE models: (1) 3.4B total parameters with 0.6B activated (3.4A0.6B); (2) 15B total paramete",
+   ") 3.4B total parameters with 0.6B activated (3.4A0.6B); (2) 15B total parameters with 2.54B activated (15A2.54B), and (3)43B total para"
+  ],
+  "act_params": [
+   "n three sizes of MoE models: (1) 3.4B total parameters with 0.6B activated (3.4A0.6B); (2) 15B total parameters with 2.54B activated",
+   "th 0.6B activated (3.4A0.6B); (2) 15B total parameters with 2.54B activated (15A2.54B), and (3)43B total parameters with 6.6B activat",
+   ".54B activated (15A2.54B), and (3)43B total parameters with 6.6B activated (43A6.6B). Each model utilizes the fine- grained expert ("
+  ],
+  "experts": [
+   "pplemented experiments by increasing the activation from top4 experts to top6 experts under the micro-batch condition and found t",
+   "iments by increasing the activation from top4 experts to top6 experts under the micro-batch condition and found that the improvem"
+  ],
+  "act_experts": [
+   "supplemented experiments by increasing the activation from top4 experts to top6 experts under the micro-batch condition and found t",
+   "periments by increasing the activation from top4 experts to top6 experts under the micro-batch condition and found that the improvem"
+  ],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2502.03009": {
+  "id": "2502.03009",
+  "chars": 70925,
+  "total_params": [
+   "a few hundred billion (B) training tokens and models up to 7B total parameters. Specifically, we uncover precise power-law scalings f"
+  ],
+  "act_params": [],
+  "experts": [
+   "s of upcycling. Intermediate test losses of the 8x0.1B MoE (2 experts activated per token) trained for a variety of total number"
+  ],
+  "act_experts": [
+   "s of upcycling. Intermediate test losses of the 8x0.1B MoE (2 experts activated per token) trained for a variety of total number of token"
+  ],
+  "tokens": [
+   "2T dense tokens, training an MoE from scratch would require 2.4T tokens—effectively saving 2T tokens in upcycled training. Converse",
+   "E from scratch would require 2.4T tokens—effectively saving 2T tokens in upcycled training. Conversely, Muennighoff et al. (2024)",
+   "to the Llama2 models (7B, 13B, 70B), which were trained on 2T tokens (Touvron et al., 2023), we estimate that compute-optimal up"
+  ],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2502.05370": {
+  "id": "2502.05370",
+  "chars": 86445,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "r entropy plateau due to its larger expert selection space (60 experts × 24 layers). Similarly, Phi-3.5-MoE (16 × 32) ex- hibits h"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2504.02263": {
+  "id": "2504.02263",
+  "chars": 103929,
+  "total_params": [
+   "aluate it us- ing MoE models with sizes ranging from 132 to 317 billion parameters. The experimental results show that MegaScale-Infer ou",
+   "tational costs. For instance, Mixtral 8x22B [70] has around 141B parameters, but its active parameters for each token are only app",
+   "aluate it us- ing MoE models with sizes ranging from 132 to 317 billion parameters. The experimental results show that MegaScale-Infer outper"
+  ],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2505.09343": {
+  "id": "2505.09343",
+  "chars": 95585,
+  "total_params": [
+   "onal requirements modest. For example, DeepSeek-V2 features 236B parameters, but only 21B parameters are activated per token. Sim-",
+   "For example, DeepSeek-V2 features 236B parameters, but only 21B parameters are activated per token. Sim- ilarly, DeepSeek-V3 expa",
+   "re activated per token. Sim- ilarly, DeepSeek-V3 expands to 671B parameters—nearly three Table 2: Comparison of computational cost"
+  ],
+  "act_params": [],
+  "experts": [
+   "K. The factor 9 indicates that each token is transferred to 8 routed experts and 1 shared expert. Network latency is not included in thi"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2505.09388": {
+  "id": "2505.09388",
+  "chars": 116043,
+  "total_params": [
+   "hip model, Qwen3-235B-A22B, is an MoE model with a total of 235 billion parameters and 22 billion activated ones per token. This design e",
+   "B-A22B. The flagship model, Qwen3-235B-A22B, has a total of 235B parameters with 22B activated ones. Below, we elaborate on the ar",
+   "aselines: (1) Qwen2.5-Turbo (Yang et al., 2024b), which has 42B parameters and 6B activated parameters. Note that its activated p"
+  ],
+  "act_params": [
+   "is an MoE model with a total of 235 billion parameters and 22 billion activated ones per token. This design ensures both high performance",
+   "model, Qwen3-235B-A22B, has a total of 235B parameters with 22B activated ones. Below, we elaborate on the architecture of the Qwen",
+   ".5-Turbo (Yang et al., 2024b), which has 42B parameters and 6B activated parameters. Note that its activated parameters are twice"
+  ],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [
+   "ld applications. Furthermore, Qwen3 has been pre-trained on 36 trillion tokens covering up to 119 languages and dialects, effectively enha",
+   "utilizes a large-scale dataset consisting of approximately 36 trillion tokens, curated to ensure linguistic and domain diversity. To effi",
+   "strategy. In the first stage, the model is trained on about 30 trillion tokens to build a strong foundation of general knowledge. In the s"
+  ],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2505.10860": {
+  "id": "2505.10860",
+  "chars": 214454,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "rt convergence rates in Section 3.1. We then turn to linear 4  experts, which violate the strong identifiability condition, and pr",
+   "h model (1) with up to k1 > k∗ 1 shared experts and k2 > k∗ 2 routed experts. Towards that goal, we let Gk1,k2(Θ) := Gk1(Θ1)×Gk2(Θ) stan",
+   "(8) with a mixture of k1 > k∗ 1 shared experts and k2 > k∗ 2 routed experts. Then, there must be some gorund-truth routed experts appro"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2507.19427": {
+  "id": "2507.19427",
+  "chars": 78380,
+  "total_params": [
+   "t longer context. Step-3 achieves low cost while activating 38B parameters per token (more than DeepSeek-V3 and Qwen3 MoE 235B),",
+   "zation objective of minimizing de- coding costs. Step-3 has 321 billion total parameters, while for each text token, 38B parameters are activat",
+   "as 321 billion total parameters, while for each text token, 38B parameters are activated. We will demonstrate that, although Step"
+  ],
+  "act_params": [
+   "his setup, Step-3 comprises 2  316 billion parameters, with 38 billion activated per token. There is an additional vision encoder of 5 bil",
+   "except the first four and last layer Total Parameters (LLM) 316 Billion Activated Params per Token 38 Billion Total Parameters (VLM) 321 Bi",
+   "widening at longer context. Step-3 achieves low cost while activating 38B parameters per token (more than DeepSeek-V3 and Qwen3 MoE 2"
+  ],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [
+   "up to 4,039 tokens per second per GPU under 50ms TPOT SLA (4K context, FP8, no MTP). It is higher than DeepSeek-V3’s 2,324 in the",
+   "5 0.06 0.07 0.08 0.09 0.10 Theoretical decoding cost (USD), 8K context 0 10 20 30 40 50 Activated parameters DSv3 Kimi K2 Qwen3 MoE",
+   "retical computation and memory access per decoding token at 8K context length. Model KV/State Memory Access (bytes) Attention Computation"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2507.20534": {
+  "id": "2507.20534",
+  "chars": 114612,
+  "total_params": [
+   "g experiments. First, we train a mid-scale 9B activated and 53B total parameters Mixture-of-Experts (MoE) model using the vanilla Muon."
+  ],
+  "act_params": [
+   "mi K2, a Mixture-of-Experts (MoE) large language model with 32 billion activated parameters and 1 trillion total parameters. We propose th",
+   "a 1.04 trillion-parameter Mixture-of-Experts (MoE) LLM with 32 billion activated parameters, purposefully designed to address the core cha",
+   "om several scaling experiments. First, we train a mid-scale 9B activated and 53B total parameters Mixture-of-Experts (MoE) model u"
+  ],
+  "experts": [
+   "we adopt a sparsity of 48 for Kimi K2, activating 8 out of 384 experts per forward pass. 1020 1021 Training FLOPs 1.3 1.4 1.5 1.6"
+  ],
+  "act_experts": [],
+  "tokens": [
+   "fficiency of Muon. Based on MuonClip, K2 was pre-trained on 15.5 trillion tokens with zero loss spike. During post-training, K2 undergoes a",
+   "lip. Using MuonClip, we successfully pre-trained Kimi K2 on 15.5 trillion tokens without a single loss spike. • We introduce a large-scale a",
+   "ure-of-experts (MoE) transformer [73] model, pre-trained on 15.5 trillion high-quality tokens. Given the increasingly limited availability of high-qualit"
+  ],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2509.01322": {
+  "id": "2509.01322",
+  "chars": 128400,
+  "total_params": [
+   "okens based on their significance, i.e., activating 18.6 to 31.3 billion parameters (out of 560 billion total) based on contextual demands",
+   "ation budgets. The baseline (top-k=8, blue) activates fixed 6B parameters per token, while the zero-expert variant (top-k=12, or",
+   "xpert variant (top-k=12, orange) dynamically activates 4.2B-7.0B parameters but maintains 8 FFN experts expectation (with fluctuat"
+  ],
+  "act_params": [
+   "as adjusted by a PID-controller, maintaining an average of ∼27 billion activated parameters per token. (2) As communication overhead becom",
+   "number remains closely around 8, corresponding to expected 27B activated parameters. (c) The standard deviation of activated FFN e",
+   "actor on MLA showing improved convergence (lower loss) on a 1B activated MOE model. (b) Validataion loss curve of a 6B activated M"
+  ],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [
+   "astructure efforts, we complete model training on more than 20 trillion tokens within 30 days, while achieving over 100 tokens per second",
+   "otably, we complete the pre-training of our 560B model over 20T tokens within 30 days and achieve 98.48% time availability without",
+   "astructure efforts, we complete model training on more than 20 trillion tokens within 30 days, while achieving over 100 tokens per second"
+  ],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2510.26692": {
+  "id": "2510.26692",
+  "chars": 94717,
+  "total_params": [
+   "etrain a Kimi Linear model with 3B activated parameters and 48B total parameters, based on a layerwise hybrid of KDA and Multi-Head Lat",
+   "t of 256 experts, including one shared expert, resulting in 48 billion total parameters and 3 billion active parameters per forward pass. The"
+  ],
+  "act_params": [
+   "classical delta rule. We pretrain a Kimi Linear model with 3B activated parameters and 48B total parameters, based on a layerwise",
+   "classical delta rule. We pretrain a Kimi Linear model with 3B activated parameters and 48B total parameters, based on a layerwise h"
+  ],
+  "experts": [
+   "62] architecture. In all experiments, we activated 8 out of 64 experts and utilized the Muon optimizer [62]. Details and hyperpara",
+   "sparsity is increased to 32. Each model activates 8 out of 256 experts, including one shared expert, resulting in 48 billion total"
+  ],
+  "act_experts": [
+   "istinction that MoE sparsity is increased to 32. Each model activates 8 out of 256 experts, including one shared expert, resulting in 48 billion total"
+  ],
+  "tokens": [],
+  "context": [
+   "ct fair comparisons with 1.4T training tokens, on MMLU-Pro (4k context length, red stars), Kimi Linear leads performance (51.0) at simila",
+   "Linear leads performance (51.0) at similar speed. On RULER (128k context length, blue circles), it is Pareto-optimal, achieving top perform",
+   "up to 75% and achieving up to 6× decoding throughput for a 1M context. These results demonstrate that Kimi Linear can be a drop-i"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2511.15015": {
+  "id": "2511.15015",
+  "chars": 70629,
+  "total_params": [
+   "per token. For example, Qwen3-Next-80B activates only about 3B parameters per token, yet storing the full model parameters requi",
+   "per token. For example, Qwen3-Next-80B activates only about 3B parameters per token, yet storing the full model parameters requires"
+  ],
+  "act_params": [
+   "on of parameters is used per token. For example, Qwen3-Next-80B activates only about 3B parameters per token, yet storing the full"
+  ],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2512.02556": {
+  "id": "2512.02556",
+  "chars": 64967,
+  "total_params": [],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [
+   "ly 1000 steps, with each step consisting of 16 sequences of 128K tokens, resulting in a total of 2.1B tokens. Sparse Training Stage",
+   "15000 steps, with each step consisting of 480 sequences of 128K tokens, resulting in a total of 943.7B tokens. 4  2.2. Parity Eval",
+   "-liveBench-April-6-2025/oQdzQvKHw8JyXbN87 5  0K 32K 64K 96K 128K Token Position 0$ 0.1$ 0.2$ 0.3$ 0.4$ 0.5$ 0.6$ 0.7$ Cost Per Mill"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2512.13525": {
+  "id": "2512.13525",
+  "chars": 79869,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "ory footprint (Table 1). For example, DeepSeek- V3 contains 256 experts in each MoE layer, and its expert parameters alone account",
+   "following prior work [31]. For the MoE layer, the GPU hosts 32 experts, and each token activates one expert under the balanced top",
+   "izes and activation distributions. For each batch size, all 32 experts are activated at least once, while the activation distribut"
+  ],
+  "act_experts": [
+   "izes and activation distributions. For each batch size, all 32 experts are activated at least once, while the activation distribution varies f"
+  ],
+  "tokens": [],
+  "context": [
+   "rns (right). would require a layer-wise batch size of about 18k tokens on H100 and 5k tokens on A100 GPUs to become compute- bound,",
+   "ire a layer-wise batch size of about 18k tokens on H100 and 5k tokens on A100 GPUs to become compute- bound, far above typical onl"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2512.21487": {
+  "id": "2512.21487",
+  "chars": 66823,
+  "total_params": [
+   "may be optional de- pending on the MoE configuration. with 180 billion parameters and Llama-3.1 [27] with 405 billion parameters exempli",
+   "ration. with 180 billion parameters and Llama-3.1 [27] with 405 billion parameters exemplify this trend. Mixture-of-Experts (MoE) archi-",
+   "may be optional de- pending on the MoE configuration. with 180 billion parameters and Llama-3.1 [27] with 405 billion parameters exemplify t"
+  ],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2601.08800": {
+  "id": "2601.08800",
+  "chars": 56885,
+  "total_params": [],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2601.17111": {
+  "id": "2601.17111",
+  "chars": 44732,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "the speedup and peak memory usage per GPU of an MoE layer (128 experts, 4 active experts, hidden size of 2048) under perfectly bal",
+   "ng by running gpt-oss-20b (Agarwal et al., 2025), which has 32 experts, through many batches of data, under 8-way EP (each GPU hos",
+   "hrough many batches of data, under 8-way EP (each GPU hosts 4 experts). To keep the data distribution familiar, we feed the model"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2602.00509": {
+  "id": "2602.00509",
+  "chars": 60261,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "semantic transitions. Comparing GPT- OSS-120B (Top-4 out of 128 experts) and Qwen3-235B (Top-8 out of 128 experts) illustrates that",
+   "20B (Top-4 out of 128 experts) and Qwen3-235B (Top-8 out of 128 experts) illustrates that model sparsity patterns further modulate",
+   "GEMM (ms) Decoding Stage of GPT-OSS-120B EP - Max Workload (16 Experts) EP - Avg Workload (16 Experts) EP - Min Workload (16 Exper"
+  ],
+  "act_experts": [
+   "changes with semantic transitions. Comparing GPT- OSS-120B (Top-4 out of 128 experts) and Qwen3-235B (Top-8 out of 128 experts) illustrates that",
+   "ng GPT- OSS-120B (Top-4 out of 128 experts) and Qwen3-235B (Top-8 out of 128 experts) illustrates that model sparsity patterns further modulate"
+  ],
+  "tokens": [],
+  "context": [
+   "and (b) show the concentrated, bursty skew during prefill (≈32K tokens). Subfigures (c) and (d) show rapid load shifts during deco",
+   "igures (c) and (d) show rapid load shifts during decoding (≈8K tokens), where expert popularity changes with semantic transitions",
+   "equent spikes in the IR above 2.6 even with large batches (≈32K tokens). Consequently, the overloaded rank dictates global tail la"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2602.15763": {
+  "id": "2602.15763",
+  "chars": 137226,
+  "total_params": [
+   "xpert parallelism communication overhead. This results in a 744B parameter model (40B active parameters), doubling the total size",
+   "xpert parallelism communication overhead. This results in a 744B parameter model (40B active parameters), doubling the total size of G"
+  ],
+  "act_params": [],
+  "experts": [
+   "model. 2.1 Architecture Model size scaling. GLM-5 scales to 256 experts and reduces its layer count to 80 to minimize expert parall"
+  ],
+  "act_experts": [],
+  "tokens": [
+   "rameters up to 744B and extend the training token budget to 28.5T tokens. Second, we have engineered a new asynchronous reinforcemen",
+   "token budget for all the training stages of GLM-5, totaling 28.5 trillion tokens for the base model. 2.1 Architecture Model size scaling. GL",
+   "ssively extend the context window across three stages: 32K (1T tokens), 128K (500B tokens), and 200K (50B tokens). Compared to th"
+  ],
+  "context": [
+   "se O(L2) attention—which becomes prohibitively expensive at 128K contexts—with a dynamic, fine- grained selection mechanism. Unlike",
+   "easoning-heavy agents we are building, being able to handle 128K contexts at half the GPU cost. The DSA training begins from the bas",
+   "m- putational costs, we conduct the search exclusively at a 16K context length and generalize the resulting pattern to all other input len"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2603.13606": {
+  "id": "2603.13606",
+  "chars": 67601,
+  "total_params": [],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2604.19241": {
+  "id": "2604.19241",
+  "chars": 89910,
+  "total_params": [],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2604.19654": {
+  "id": "2604.19654",
+  "chars": 28095,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "strategies without reconfiguration. On GLM-5’s MoE layers (128 experts, no auxiliary loss, up to 16 H100 GPUs), FEPLB reduces the",
+   "ed) across 7,000 training iterations for GLM-5’s MoE layer (128 experts, EP = 8, without auxiliary loss). The varying band widths r",
+   "tion backend. We evaluate FEPLB on the MoE layers of GLM-5 (128 routed experts, without auxiliary loss) across three PP/EP configurations"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2605.05899": {
+  "id": "2605.05899",
+  "chars": 69793,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "1. Expert activation distribution of Qwen3-VL-30B- A3B with 128 experts per layer. The x-axis is the expert ID, the y-axis is the l",
+   "g search space. Compared with coarse-grained designs with 8–16 experts [16, 40], models such as Qwen-VL-MoE route over much larger",
+   "h as Qwen-VL-MoE route over much larger expert pools (e.g., 128 experts) [3]. In this regime, inaccurate prediction becomes increas"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2605.21100": {
+  "id": "2605.21100",
+  "chars": 90332,
+  "total_params": [],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [
+   "ts are short, but a non-negligible fraction (1.67%) exceeds 100k tokens. Following Medha [2], we con- struct evaluation traces by m",
+   "ention loads can still differ substantially (e.g., 100K vs. 500K tokens). DP instance 0 finishes its lighter attention phase and di",
+   "gure 4(d), NanoCP makes Instance 0 and Instance 1 each hold 300K tokens of KV cache and process a batch size of 50, while incurring"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2605.26494": {
+  "id": "2605.26494",
+  "chars": 112941,
+  "total_params": [
+   "h maximum real-world intelligence. The flagship M2 contains 229.9B total parameters with only 9.8B activated per token. Designed end-to-en",
+   "The flagship M2 is a 62-layer decoder-only Transformer with 229.9B total parameters and only 9.8B activated per token, organized as 256 fi",
+   "ile maintaining a low per-token compute budget. It contains 229.9B total parameters, with 9.8B activated per token. The model is implement"
+  ],
+  "act_params": [
+   "The flagship M2 contains 229.9B total parameters with only 9.8B activated per token. Designed end-to-end for agentic deployment, th",
+   "ic cowork, and reasoning & knowledge benchmarks. With only ∼10 B activated parameters, MiniMax-M2.7 remains competitive with substan",
+   "oder-only Transformer with 229.9B total parameters and only 9.8B activated per token, organized as 256 fine-grained experts (Dai et"
+  ],
+  "experts": [
+   "contains 256 fine-grained experts (Dai et al., 2024), with 8 experts activated per token. Routing is implemented using sigmoid g"
+  ],
+  "act_experts": [
+   "contains 256 fine-grained experts (Dai et al., 2024), with 8 experts activated per token. Routing is implemented using sigmoid gating wi"
+  ],
+  "tokens": [
+   "path (Leviathan et al., 2023) at inference. Pre-training on 29.2T tokens establishes the base; the bulk of M2’s real-world capabilit",
+   "072 and a vocabulary size of 200,064, and is pre-trained on 29.2T tokens with a maximum context length of 192K. Each Transformer blo",
+   "the constant phase of pre-training, we train on a total of 19.9T tokens. Long-Context Extension. Following the initial pre-training"
+  ],
+  "context": [
+   "unced specifically at long context: on benchmarks exceeding 32K context (agent tasks and complex long-context evaluations), SWA vari",
+   "ure to progressively extend the model’s context window from 8K tokens through 32K and ultimately to 192K tokens. The decay phase u",
+   "context window from 8K tokens through 32K and ultimately to 192K tokens. The decay phase uses a total data budget of 9.3T tokens, c"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2606.10493": {
+  "id": "2606.10493",
+  "chars": 78414,
+  "total_params": [],
+  "act_params": [
+   "ndwidth bound. Using the published figures—74% CPU time and 20.4B activated MoE parameters—KTransformers’ decode throughput implies a",
+   "ndwidth bound. Using the published figures—74% CPU time and 20.4B activated MoE parameters—KTransformers’ decode throughput implies an"
+  ],
+  "experts": [
+   "r number of weight tensors. In DeepSeek-V3, 58 MoE layers × 256 experts × 3 FP8 linear modules yields 44.5K tensors; naïvely alloca"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2606.19348": {
+  "id": "2606.19348",
+  "chars": 173092,
+  "total_params": [
+   "1.6T parameters (49B activated) and DeepSeek-V4-Flash with 284B parameters (13B activated) — both supporting a context length of",
+   "1.6T parameters (49B activated) and DeepSeek-V4-Flash with 284B parameters (13B activated). Through architectural innova- tions,",
+   "1.6T parameters (49B activated) and DeepSeek-V4-Flash with 284B parameters (13B activated) — both supporting a context length of one"
+  ],
+  "act_params": [
+   "oE) language models — DeepSeek-V4-Pro with 1.6T parameters (49B activated) and DeepSeek-V4-Flash with 284B parameters (13B activate",
+   "(49B activated) and DeepSeek-V4-Flash with 284B parameters (13B activated) — both supporting a context length of one million tokens",
+   "e preview versions of DeepSeek-V4-Pro with 1.6T parameters (49B activated) and DeepSeek-V4-Flash with 284B parameters (13B activate"
+  ],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [
+   "series. During pre-training, we train DeepSeek-V4-Flash on 32T tokens and DeepSeek-V4-Pro on 33T tokens, respectively. After pre-",
+   "rain DeepSeek-V4-Flash on 32T tokens and DeepSeek-V4-Pro on 33T tokens, respectively. After pre-training, these two models can nat",
+   "series. During pre-training, we train DeepSeek-V4-Flash on 32T tokens and DeepSeek-V4-Pro on 33T tokens, respectively. After pre-"
+  ],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2607.06202": {
+  "id": "2607.06202",
+  "chars": 103294,
+  "total_params": [],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2607.24653": {
+  "id": "2607.24653",
+  "chars": 189122,
+  "total_params": [],
+  "act_params": [
+   "uce Kimi K3, a 2.8T parameter Mixture-of-Experts model with 104 billion activated parameters, native vision capabilities, and a 1-million-t",
+   "ixture-of-Experts model with 2.8 trillion total parameters, 104 billion activated parameters, and a context window of up to one million tok",
+   "We train a 2.8T-parameter native multimodal MoE model with 104B activated parameters and a 1M-token context window. KDA, AttnRes, S"
+  ],
+  "experts": [
+   "er with Stable LatentMoE, which effectively activates 16 of 896 routed experts per token, and refined training and data recipes, these adv",
+   "layers. Stable LatentMoE expands the routed expert space to 896 experts, with 16 activated per token, while normalization, SiTU-GLU",
+   "erforms sparse channel mixing, effectively activating 16 of 896 routed experts for each token (§2.3). For native vision, MoonViT-V2 encode"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [
+   "learning, reasoning effort, and long-horizon interaction at 1M context length. We introduce Kimi K3, a native multimodal Mixture-o",
+   "ining foundation with post-training designed explicitly for 1M context test-time scaling. Kimi K3 undergoes reinforcement learning"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2608.08650": {
+  "id": "2608.08650",
+  "chars": 83688,
+  "total_params": [
+   "nization. 3.4 Open-Weight Coarse-Grained MoE Mixtral uses 8×7B parameters with Top-2 routing per token[11]. It did not introduce",
+   "ditional capabilities. DeepSeek-V2 scales this structure to 236B total parameters and 21B active parameters, and adds device-limited rou",
+   "nization. 3.4 Open-Weight Coarse-Grained MoE Mixtral uses 8×7B parameters with Top-2 routing per token[11]. It did not introduce a n"
+  ],
+  "act_params": [],
+  "experts": [
+   "design to 1.04T total parameters, 32.6B active parameters, 384 routed experts, and Top-8 routing, and reports scaling gains from higher s",
+   "er sparsity at a fixed active budget[17]. GPT-OSS-120B uses 128 experts with Top-4 routing and a relatively small active footprint,"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2608.30320": {
+  "id": "2608.30320",
+  "chars": 108816,
+  "total_params": [
+   "Qwen3.8-Flash-Next, a sparse mixture- of-experts model with 125B parameters, 6B activated per token, and additional 51B parameters",
+   "ith 125B parameters, 6B activated per token, and additional 51B parameters of n-gram embedding tables held off the accelerator. O",
+   "wen3.8-Flash-Next is a sparse mixture-of-experts model with 125B total parameters, 6B activated per token, and additional 51B parameters"
+  ],
+  "act_params": [
+   "t, a sparse mixture- of-experts model with 125B parameters, 6B activated per token, and additional 51B parameters of n-gram embedd",
+   "sparse mixture-of-experts model with 125B total parameters, 6B activated per token, and additional 51B parameters of n-gram embedd",
+   "t, a sparse mixture- of-experts model with 125B parameters, 6B activated per token, and additional 51B parameters of n-gram embeddin"
+  ],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [
+   "wen3.5 architecture, pretrained first on 400B tokens with a 4K context length, and subsequently on 80B tokens with a 32K context length.",
+   "a 4K context length, and subsequently on 80B tokens with a 32K context length. We report knowledge results on MMLU (Hendrycks et al., 202",
+   "CPT) stage of Qwen3.8-Flash- Next with a sequence length of 256K tokens. The training procedure consists of two stages: dense disti"
+  ],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2609.04244": {
+  "id": "2609.04244",
+  "chars": 67162,
+  "total_params": [],
+  "act_params": [],
+  "experts": [
+   "t. Table 1 reports the entitlement for Qwen3.5-35B-A3B-FP8 (256 experts, top-8) on a sin- gle H200 (4.8 TB/s peak HBM3e) at 1600 in"
+  ],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2609.19969": {
+  "id": "2609.19969",
+  "chars": 160484,
+  "total_params": [
+   "sal Encoder-Decoder (CED) architecture, the model activates 16B parameters per token during decode but only 8B parameters during",
+   "l activates 16B parameters per token during decode but only 8B parameters during prefill, substantially improving cost efficienc",
+   "er hidden states. This design enables the model to activate 8B parameters per token during prefill and 16B during decode, which"
+  ],
+  "act_params": [
+   "th its Causal Encoder-Decoder (CED) architecture, the model activates 16B parameters per token during decode but only 8B parameters d",
+   "nal encoder hidden states. This design enables the model to activate 8B parameters per token during prefill and 16B during decode,",
+   "sh has 552B backbone parameters and 196B Engram parameters, activating 8B parameters per token during prefill and 16B during decode."
+  ],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [
+   "rain DeepSeek-V4.1- Flash on a multimodal corpus comprising 45T tokens and conduct comprehensive post-training, yielding strong pe",
+   "ek-V4.1-Flash on a large-scale multimodal corpus comprising 45T tokens. Sparse attention is trained from scratch at a sequence len",
+   "rain DeepSeek-V4.1- Flash on a multimodal corpus comprising 45T tokens and conduct comprehensive post-training, yielding strong pe"
+  ],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "2609.36959": {
+  "id": "2609.36959",
+  "chars": 55429,
+  "total_params": [],
+  "act_params": [],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [],
+  "context": [],
+  "gpu_hours": [],
+  "mfu": []
+ },
+ "test_dsv3": {
+  "id": "test_dsv3",
+  "chars": 150416,
+  "total_params": [
+   "k-V3, a strong Mixture-of-Experts (MoE) language model with 671B total parameters with 37B activated for each token. To achieve efficien",
+   "ce DeepSeek-V3, a large Mixture-of-Experts (MoE) model with 671B parameters, of which 37B are activated for each token. With a for",
+   "ce DeepSeek-V3, a large Mixture-of-Experts (MoE) model with 671B parameters, of which 37B are activated for each token. With a forward"
+  ],
+  "act_params": [
+   "xperts (MoE) language model with 671B total parameters with 37B activated for each token. To achieve efficient inference and cost-e",
+   "xperts (MoE) language model with 671B total parameters with 37B activated for each token. To achieve efficient inference and cost-eff"
+  ],
+  "experts": [],
+  "act_experts": [],
+  "tokens": [
+   "0 GPU hours, we complete the pre-training of DeepSeek-V3 on 14.8T tokens, producing the currently strongest open-source base model.",
+   "0 GPU hours, we complete the pre-training of DeepSeek-V3 on 14.8T tokens, producing the currently strongest open-source base model."
+  ],
+  "context": [],
+  "gpu_hours": [
+   "ts excellent performance, DeepSeek-V3 requires only 2.788M H800 GPU hours for its full training. In addition, its training process is",
+   "osts Pre-Training Context Extension Post-Training Total in H800 GPU Hours 2664K 119K 5K 2788K in USD $5.328M $0.238M $0.01M $5.576M T",
+   "ing DeepSeek-V3 on each trillion tokens requires only 180K H800 GPU hours, i.e., 3.7 days on our cluster with 2048 H800 GPUs. Consequ"
+  ],
+  "mfu": []
+ }
+}

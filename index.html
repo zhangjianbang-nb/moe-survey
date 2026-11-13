@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MoE 大模型深度调研 · 2026</title>
+<style>
+:root{
+  --ink:#12161f; --ink-2:#3d4654; --ink-3:#6b7484;
+  --paper:#f6f4ef; --card:#ffffff; --line:#e3ded4;
+  --navy:#101a3a; --blue:#2b4ea8; --gold:#b98a2f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Sans CJK SC","Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  line-height:1.75;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+
+/* cover */
+.cover{
+  background:linear-gradient(155deg,#080d1f 0%,#101a3a 40%,#1b2f6b 74%,#2b4ea8 100%);
+  color:#fff;padding:76px 0 60px;position:relative;overflow:hidden;
+}
+.cover::after{
+  content:"";position:absolute;right:-140px;top:-120px;width:460px;height:460px;
+  border-radius:50%;border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 0 0 70px rgba(255,255,255,.03),0 0 0 150px rgba(255,255,255,.02);
+}
+.cover .wrap{position:relative;z-index:1}
+.badge{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:12.5px;letter-spacing:.14em;color:#c9d6ff;
+  border:1px solid rgba(201,214,255,.35);border-radius:999px;padding:5px 14px;
+}
+.badge i{width:6px;height:6px;border-radius:50%;background:var(--gold);display:inline-block}
+h1{font-size:clamp(30px,5vw,50px);line-height:1.18;margin:26px 0 12px;font-weight:800;letter-spacing:.01em}
+h1 em{font-style:normal;color:#ffd98a}
+.sub{font-size:clamp(15px,2.2vw,19px);color:#cfd9f2;margin:0 0 22px}
+.lead{max-width:640px;color:#aebbe0;font-size:14.5px;margin:0 0 34px}
+.stats{display:flex;flex-wrap:wrap;gap:14px 46px;border-top:1px solid rgba(255,255,255,.16);padding-top:24px}
+.stat b{display:block;font-size:clamp(24px,3.4vw,34px);font-weight:800;color:#fff;line-height:1.1}
+.stat span{font-size:12.5px;color:#9fb0da;letter-spacing:.06em}
+
+/* sections */
+section{padding:54px 0 8px}
+h2{font-size:22px;margin:0 0 6px;font-weight:800}
+h2 .no{color:var(--gold);font-size:14px;letter-spacing:.12em;display:block;margin-bottom:4px}
+.note{color:var(--ink-3);font-size:13.5px;margin:0 0 26px}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+a.card{
+  display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;padding:24px 24px 20px;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+a.card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(18,22,31,.09);border-color:#cfc7b6}
+.card .k{font-size:11.5px;letter-spacing:.14em;color:var(--gold);font-weight:700}
+.card h3{font-size:19px;margin:8px 0 8px;font-weight:800}
+.card p{font-size:13.8px;color:var(--ink-2);margin:0 0 14px}
+.card .go{font-size:13px;color:var(--blue);font-weight:700}
+.card .go::after{content:" →"}
+
+/* chapters */
+ol.toc{list-style:none;margin:0;padding:0;columns:2;column-gap:40px}
+ol.toc li{
+  break-inside:avoid;padding:11px 0;border-bottom:1px solid var(--line);
+  display:flex;gap:14px;font-size:14.2px;
+}
+ol.toc li b{color:var(--gold);font-variant-numeric:tabular-nums;min-width:24px;font-weight:800}
+ol.toc li span{color:var(--ink-2)}
+
+/* conclusion */
+blockquote{
+  margin:0;background:var(--navy);color:#e8eeff;border-radius:14px;
+  padding:28px 30px;font-size:15px;
+}
+blockquote .chain{
+  font-family:ui-monospace,"SFMono-Regular",Menlo,monospace;
+  font-size:clamp(13px,2vw,16px);color:#ffd98a;letter-spacing:.02em;
+  margin:14px 0 18px;line-height:1.9;word-break:break-word;
+}
+blockquote p{margin:0 0 8px;color:#b9c6e6;font-size:14px}
+blockquote p:last-child{margin-bottom:0}
+
+footer{
+  margin-top:64px;border-top:1px solid var(--line);padding:30px 0 44px;
+  color:var(--ink-3);font-size:13px;
+}
+footer a{color:var(--blue);text-decoration:none}
+footer .row{display:flex;flex-wrap:wrap;gap:10px 26px}
+
+@media (max-width:720px){
+  .cover{padding:56px 0 44px}
+  ol.toc{columns:1}
+  .stats{gap:12px 30px}
+  blockquote{padding:22px 20px}
+}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <span class="badge"><i></i>MoE · 深度调研 · 2026</span>
+    <h1>混合专家模型<br><em>十年瓶颈迁移史</em></h1>
+    <p class="sub">原理、架构演进、训练系统与推理部署</p>
+    <p class="lead">从 1337 篇 arXiv 候选里筛出 56 篇精读、80 篇速览，写给推理引擎与系统工程师：MoE 省的是算力，不省显存；每一代架构解决一个矛盾，再把瓶颈推到下一个位置。</p>
+    <div class="stats">
+      <div class="stat"><b>1337</b><span>篇候选论文</span></div>
+      <div class="stat"><b>56</b><span>篇深度精读</span></div>
+      <div class="stat"><b>80</b><span>篇速览</span></div>
+      <div class="stat"><b>59</b><span>页综述</span></div>
+      <div class="stat"><b>11</b><span>章正文</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="read">
+    <h2><span class="no">READ</span>两种读法</h2>
+    <p class="note">同一批论文，两种讲法：工程师版给全貌与数据，故事书版给直觉与比喻。两个页面都是单文件、零依赖，双击即读。</p>
+    <div class="cards">
+      <a class="card" href="MOE_SURVEY.html">
+        <div class="k">ENGINEER</div>
+        <h3>综述 · 网页版</h3>
+        <p>11 章正文、56 张深度卡片、80 条速览，覆盖数学基础、路由、架构、训练、推理、硬件与产业落地。</p>
+        <div class="go">开始阅读</div>
+      </a>
+      <a class="card" href="story/index.html">
+        <div class="k">STORYBOOK</div>
+        <h3>故事书 · 精读版</h3>
+        <p>把 MoE 写成一家医院：分诊台是 router，256 个科室是总参数，每位病人只挂 8 个号。附 7 篇专业导读与术语小抄。</p>
+        <div class="go">进入故事</div>
+      </a>
+      <a class="card" href="MOE_SURVEY.pdf">
+        <div class="k">PRINT</div>
+        <h3>综述 · PDF</h3>
+        <p>59 页 A4 排版，适合打印、批注与离线归档。与网页版同源同内容。</p>
+        <div class="go">下载 PDF</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="chapters">
+    <h2><span class="no">CONTENTS</span>目录</h2>
+    <p class="note">正文 11 章 + 术语表 + 深度卡片；Markdown 源在 <a href="sections/">sections/</a>。</p>
+    <ol class="toc">
+      <li><b>01</b><span>执行摘要</span></li>
+      <li><b>02</b><span>数学基础：稀疏激活到底省了什么</span></li>
+      <li><b>03</b><span>路由与负载均衡：MoE 最活跃的战场</span></li>
+      <li><b>04</b><span>架构演进：八个里程碑与瓶颈迁移</span></li>
+      <li><b>05</b><span>模型代际全景：从 600B 到 2.8T</span></li>
+      <li><b>06</b><span>训练系统：稳定性、精度与流水线</span></li>
+      <li><b>07</b><span>推理系统：MoE 真正的主战场</span></li>
+      <li><b>08</b><span>硬件协同：MoE 对芯片的要求</span></li>
+      <li><b>09</b><span>前沿方向：2026 年的五个战场</span></li>
+      <li><b>10</b><span>产业落地：成本、部署与选型</span></li>
+      <li><b>11</b><span>术语表</span></li>
+    </ol>
+  </section>
+
+  <section id="takeaway">
+    <h2><span class="no">TAKEAWAY</span>一句话结论</h2>
+    <p class="note">MoE 的历史不是「模型一代比一代大」的线性叙事，而是一部瓶颈迁移史。</p>
+    <blockquote>
+      <p>MoE 把<strong>参数容量</strong>与<strong>每 token 计算量</strong>解耦：省算力，但不省显存。</p>
+      <div class="chain">容量 → 路由 → 通信 → 显存 → 带宽 → 精度 → 调度 → 存储</div>
+      <p>DeepSeek-V3 训练 2.788M H800 小时；V4.1 推理约 890 B/token；EP/all-to-all 约 939 MB/layer，是推理的第一瓶颈。</p>
+      <p>推理优化主线：grouped GEMM、EPLB、PD 分离、FP8/FP4。</p>
+    </blockquote>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>© 2026 Zhang Jianbang</span>
+      <span>代码 MIT · 文档 CC BY 4.0</span>
+      <span><a href="https://github.com/zhangjianbang-nb/moe-survey">GitHub 仓库</a></span>
+      <span><a href="README.md">README</a></span>
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>
